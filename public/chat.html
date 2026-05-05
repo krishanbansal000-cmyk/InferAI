@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bol.ai | Chat</title>
+    <title>Karya.ai | Chat</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap");
 
@@ -59,66 +59,19 @@
         letter-spacing: -0.04em;
       }
 
-      .mark {
-        display: grid;
+      .logo-icon {
         width: 32px;
         height: 32px;
-        place-items: center;
-        position: relative;
-        color: var(--milk);
         border-radius: 9px;
-        background: linear-gradient(135deg, var(--violet), var(--teal) 56%, var(--green));
-        box-shadow: 0 10px 20px rgba(124, 58, 237, 0.12);
-        font-size: 0;
+        background: linear-gradient(135deg, #FF9933, #f59e0b 40%, #138808);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 900;
+        font-size: 14px;
+        box-shadow: 0 8px 16px rgba(245, 158, 11, 0.15);
       }
-
-      .mark::before {
-        width: 14px;
-        height: 14px;
-        content: "";
-        border: 2.5px solid currentColor;
-        border-right-color: transparent;
-        border-radius: 50%;
-        transform: rotate(-35deg);
-      }
-
-      .mark::after {
-        position: absolute;
-        right: 5px;
-        bottom: 5px;
-        width: 5px;
-        height: 5px;
-        content: "";
-        border-radius: 50%;
-        background: var(--marigold);
-      }
-
-      .india-flag {
-        display: inline-flex;
-        flex-direction: column;
-        width: 18px;
-        height: 12px;
-        border-radius: 2px;
-        overflow: hidden;
-        border: 1px solid rgba(26, 26, 26, 0.08);
-        flex-shrink: 0;
-      }
-
-      .india-flag span { flex: 1; }
-      .saffron { background: #FF9933; }
-      .white-stripe { background: #FFFFFF; position: relative; }
-      .white-stripe::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 3px;
-        height: 3px;
-        border-radius: 50%;
-        background: #000080;
-        transform: translate(-50%, -50%);
-      }
-      .green-stripe { background: #138808; }
 
       .nav-links {
         display: flex;
@@ -360,15 +313,13 @@
   <body>
     <div class="topbar">
       <nav class="nav">
-        <a class="brand" href="index.html">
-          <span class="mark"></span>
-          <span>Bol.ai</span>
-          <span class="india-flag"><span class="saffron"></span><span class="white-stripe"></span><span class="green-stripe"></span></span>
+        <a class="brand" href="/">
+          <div class="logo-icon">&#x0915;</div>
+          <span>Karya.ai</span>
         </a>
         <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="chat.html" class="active">Chat</a>
-          <a href="dashboard.html">Dashboard</a>
+          <a href="/chat" class="active">Chat</a>
+          <a href="/dashboard">Dashboard</a>
         </div>
       </nav>
     </div>
@@ -385,7 +336,7 @@
 
       <div class="chat-messages" id="chatMessages">
         <div class="welcome-card" id="welcomeCard">
-          <h2>Try Bol.ai for free</h2>
+          <h2>Try Karya.ai for free</h2>
           <p>Chat with India-hosted open-weight models. Fast, private, &#x20B9;5/million tokens.</p>
           <div class="suggestions">
             <button class="suggestion" data-msg="Write a Python function to sort a list">Sort function in Python</button>
@@ -400,7 +351,7 @@
         <button class="send-btn" id="sendBtn" disabled>&#x27A4;</button>
       </div>
 
-      <div class="chat-footer">Bol.ai may produce inaccurate information. Verify important facts.</div>
+      <div class="chat-footer">Karya.ai may produce inaccurate information. Verify important facts.</div>
     </div>
 
     <script>
@@ -438,8 +389,8 @@
       const responses = [
         "That's a great question! Let me think through this step by step.\n\nBased on the context, the key considerations are:\n\n1. **Performance** - Using optimized inference kernels significantly reduces latency\n2. **Cost** - At just \u20b95 per million tokens, it's highly competitive\n3. **Privacy** - Data stays within Indian borders\n\nWould you like me to dive deeper into any of these points?",
         "Here's a quick implementation:\n\n```python\ndef sort_list(items):\n    return sorted(items, key=lambda x: x if isinstance(x, (int, float)) else str(x))\n```\n\nThis handles mixed types gracefully. For production use, add type validation and error handling.",
-        "FP8 quantization stores weights and activations in 8-bit floating point instead of 16-bit (FP16) or 32-bit (FP32).\n\n**Benefits:**\n- 2x memory reduction vs FP16\n- 2x throughput on compatible GPUs\n- Minimal quality loss for inference\n\nAt Bol.ai, we use FP8 KV cache to serve long-context models efficiently on Indian-hosted GPUs.",
-        "Indian data residency means your data is processed and stored on servers physically located in India.\n\n**Why it matters:**\n- Compliance with Indian data protection laws\n- Lower latency for Indian users\n- Sovereign control over sensitive data\n\nBol.ai provides zero-retention options and private endpoints for strict data governance."
+        "FP8 quantization stores weights and activations in 8-bit floating point instead of 16-bit (FP16) or 32-bit (FP32).\n\n**Benefits:**\n- 2x memory reduction vs FP16\n- 2x throughput on compatible GPUs\n- Minimal quality loss for inference\n\nAt Karya.ai, we use FP8 KV cache to serve long-context models efficiently on Indian-hosted GPUs.",
+        "Indian data residency means your data is processed and stored on servers physically located in India.\n\n**Why it matters:**\n- Compliance with Indian data protection laws\n- Lower latency for Indian users\n- Sovereign control over sensitive data\n\nKarya.ai provides zero-retention options and private endpoints for strict data governance."
       ];
 
       let responseIndex = 0;
@@ -468,7 +419,7 @@
         div.className = "msg " + role;
         const avatar = document.createElement("div");
         avatar.className = "msg-avatar";
-        avatar.textContent = role === "assistant" ? "B" : "U";
+        avatar.textContent = role === "assistant" ? "K" : "U";
         const bubble = document.createElement("div");
         bubble.className = "msg-bubble";
         bubble.innerHTML = formatText(text);
@@ -483,7 +434,7 @@
         div.className = "msg assistant";
         const avatar = document.createElement("div");
         avatar.className = "msg-avatar";
-        avatar.textContent = "B";
+        avatar.textContent = "K";
         const bubble = document.createElement("div");
         bubble.className = "msg-bubble";
         bubble.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';

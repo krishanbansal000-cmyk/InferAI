@@ -1,0 +1,1100 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bol.ai | India-Hosted AI Inference Infrastructure</title>
+    <meta
+      name="description"
+      content="India-hosted optimized inference for open-weight AI models. Fast APIs, private endpoints, long-context coding models, and GPU performance engineering."
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap");
+
+      :root {
+        --ink: #0d1724;
+        --muted: #647084;
+        --sand: #eef5f3;
+        --milk: #fbfdf9;
+        --marigold: #ffb020;
+        --kumkum: #ff5a3d;
+        --indigo: #1246a0;
+        --green: #008f68;
+        --cyan: #00a6c8;
+        --line: rgba(13, 23, 36, 0.12);
+        --shadow: 0 24px 70px rgba(15, 36, 62, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at 82% 6%, rgba(0, 166, 200, 0.18), transparent 28rem),
+          radial-gradient(circle at 16% 8%, rgba(255, 176, 32, 0.16), transparent 22rem),
+          linear-gradient(135deg, #f9fcf7 0%, #eaf4f3 48%, #f7fbff 100%);
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        content: "";
+        opacity: 0.55;
+        background:
+          linear-gradient(90deg, rgba(18, 70, 160, 0.055) 1px, transparent 1px),
+          linear-gradient(rgba(18, 70, 160, 0.055) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrap {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(13, 23, 36, 0.08);
+        background: rgba(251, 253, 249, 0.82);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+      }
+
+      .brand {
+        display: flex;
+        gap: 13px;
+        align-items: center;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .mark {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        position: relative;
+        color: var(--milk);
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--indigo), var(--cyan) 56%, var(--green));
+        box-shadow: 0 16px 34px rgba(18, 70, 160, 0.22);
+        font-size: 0;
+      }
+
+      .mark::before {
+        width: 20px;
+        height: 20px;
+        content: "";
+        border: 3px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        transform: rotate(-35deg);
+      }
+
+      .mark::after {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        width: 8px;
+        height: 8px;
+        content: "";
+        border-radius: 50%;
+        background: var(--marigold);
+        box-shadow: 0 0 0 4px rgba(255, 176, 32, 0.26);
+      }
+
+      .links {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .links a:hover {
+        color: var(--ink);
+      }
+
+      .nav-cta,
+      .button.primary {
+        color: var(--milk);
+        border-color: var(--ink);
+        background: var(--ink);
+        box-shadow: 0 18px 42px rgba(13, 23, 36, 0.22);
+      }
+
+      .nav-cta {
+        padding: 12px 16px;
+        border-radius: 999px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
+        gap: 46px;
+        align-items: center;
+        padding: 78px 0 54px;
+      }
+
+      .label {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        padding: 9px 13px;
+        border: 1px solid rgba(31, 107, 69, 0.22);
+        border-radius: 999px;
+        color: var(--green);
+        background: rgba(251, 253, 249, 0.74);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .label::before {
+        width: 8px;
+        height: 8px;
+        content: "";
+        border-radius: 999px;
+        background: var(--green);
+        box-shadow: 0 0 0 8px rgba(31, 107, 69, 0.1);
+      }
+
+      h1 {
+        max-width: 860px;
+        margin: 22px 0 20px;
+        font-size: clamp(48px, 7vw, 98px);
+        line-height: 0.92;
+        letter-spacing: -0.078em;
+      }
+
+      h1 .desh {
+        display: block;
+        color: var(--kumkum);
+        font-family: "Tiro Devanagari Hindi", serif;
+        font-size: 0.64em;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+      }
+
+      .lead {
+        max-width: 720px;
+        color: #514a3f;
+        font-size: clamp(22px, 2.7vw, 31px);
+        line-height: 1.62;
+        letter-spacing: -0.045em;
+      }
+
+      .lead strong {
+        color: var(--ink);
+      }
+
+      .mission {
+        max-width: 690px;
+        margin: 18px 0 0;
+        padding-left: 18px;
+        border-left: 5px solid var(--marigold);
+        color: var(--muted);
+        font-size: clamp(17px, 1.6vw, 20px);
+        font-weight: 700;
+        line-height: 1.62;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+        margin-top: 32px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 20px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(251, 253, 249, 0.78);
+        font-weight: 900;
+      }
+
+      .proof-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 38px;
+      }
+
+      .proof {
+        padding: 17px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(251, 253, 249, 0.72);
+      }
+
+      .proof strong {
+        display: block;
+        font-size: 25px;
+        letter-spacing: -0.06em;
+      }
+
+      .proof span {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+      }
+
+      .hero-chart {
+        position: relative;
+        overflow: hidden;
+        min-height: 460px;
+        padding: 28px;
+        border: 1px solid rgba(13, 23, 36, 0.12);
+        border-radius: 38px;
+        background:
+          radial-gradient(circle at 70% 10%, rgba(0, 166, 200, 0.17), transparent 20rem),
+          linear-gradient(145deg, rgba(251, 253, 249, 0.94), rgba(231, 244, 243, 0.9));
+        box-shadow: var(--shadow);
+      }
+
+      .hero-chart::before {
+        position: absolute;
+        inset: 24px;
+        content: "";
+        border: 1px solid rgba(18, 70, 160, 0.14);
+        border-radius: 30px;
+      }
+
+      .hero-chart .chart-card {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        padding: 4px;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-chart h2 {
+        font-size: clamp(30px, 3vw, 44px);
+      }
+
+      .chart-image {
+        display: block;
+        width: 100%;
+        margin-top: 16px;
+        border: 1px solid rgba(13, 23, 36, 0.1);
+        border-radius: 24px;
+        background: var(--milk);
+        box-shadow: 0 18px 50px rgba(15, 36, 62, 0.1);
+      }
+
+      .mandala {
+        position: absolute;
+        right: -90px;
+        top: -90px;
+        width: 290px;
+        height: 290px;
+        border: 1px solid rgba(0, 166, 200, 0.18);
+        border-radius: 50%;
+      }
+
+      .mandala::before,
+      .mandala::after {
+        position: absolute;
+        inset: 34px;
+        content: "";
+        border: 1px solid rgba(0, 166, 200, 0.18);
+        border-radius: 50%;
+      }
+
+      .mandala::after {
+        inset: 76px;
+      }
+
+      .card-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .mapline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mapline span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .status-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 0 8px rgba(31, 107, 69, 0.1);
+      }
+
+      .route {
+        display: grid;
+        gap: 14px;
+        margin-top: 26px;
+      }
+
+      .route-step {
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 18px;
+        border: 1px solid rgba(13, 23, 36, 0.1);
+        border-radius: 24px;
+        background: rgba(251, 253, 249, 0.58);
+      }
+
+      .num {
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        color: var(--milk);
+        border-radius: 18px;
+        background: var(--indigo);
+        font-weight: 900;
+      }
+
+      .route-step:nth-child(2) .num {
+        background: var(--kumkum);
+      }
+
+      .route-step:nth-child(3) .num {
+        background: var(--green);
+      }
+
+      .route-step h3 {
+        margin: 0 0 6px;
+        font-size: 20px;
+        letter-spacing: -0.04em;
+      }
+
+      .route-step p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .quote {
+        margin-top: 22px;
+        padding: 20px;
+        border-left: 5px solid var(--marigold);
+        border-radius: 18px;
+        background: rgba(13, 23, 36, 0.05);
+        font-weight: 800;
+        line-height: 1.5;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .benchmark {
+        padding-top: 34px;
+      }
+
+      .benchmark-board {
+        display: grid;
+        grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .chart-card,
+      .pricing-note {
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 34px;
+        background: rgba(251, 253, 249, 0.78);
+        box-shadow: 0 20px 62px rgba(67, 42, 19, 0.08);
+      }
+
+      .chart-card h2,
+      .pricing-note h3 {
+        margin: 0;
+      }
+
+      .chart-sub {
+        max-width: 780px;
+        margin: 14px 0 26px;
+        color: var(--muted);
+        line-height: 1.62;
+      }
+
+      .bars {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        align-items: end;
+        min-height: 250px;
+        padding: 16px 8px 0;
+      }
+
+      .bar-row {
+        display: grid;
+        grid-template-rows: 1fr auto;
+        gap: 10px;
+        min-height: 230px;
+      }
+
+      .bar-track {
+        display: flex;
+        align-items: end;
+        min-height: 178px;
+        padding: 8px;
+        border: 1px solid rgba(13, 23, 36, 0.1);
+        border-radius: 22px;
+        background: rgba(13, 23, 36, 0.055);
+      }
+
+      .bar-fill {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        min-height: 34px;
+        padding-top: 10px;
+        border-radius: 16px;
+        color: var(--milk);
+        background: linear-gradient(180deg, #8f9aad, #647084);
+        font-size: 12px;
+        font-weight: 900;
+        writing-mode: horizontal-tb;
+      }
+
+      .bar-fill.blue {
+        background: linear-gradient(180deg, #5c8be2, var(--indigo));
+      }
+
+      .bar-fill.green {
+        background: linear-gradient(180deg, #48c28d, var(--green));
+      }
+
+      .bar-fill.bol {
+        background: linear-gradient(180deg, var(--cyan), var(--green));
+        box-shadow: 0 10px 26px rgba(0, 143, 104, 0.22);
+      }
+
+      .bar-meta {
+        text-align: center;
+      }
+
+      .bar-label {
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+      }
+
+      .bar-price {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .fineprint {
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .pricing-note {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .pricing-note h3 {
+        font-size: 30px;
+        letter-spacing: -0.06em;
+      }
+
+      .price-lines {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0;
+      }
+
+      .price-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .price-line strong {
+        letter-spacing: -0.03em;
+      }
+
+      .price-line span {
+        color: var(--muted);
+        font-weight: 900;
+        text-align: right;
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .badge {
+        padding: 8px 10px;
+        border-radius: 999px;
+        color: var(--green);
+        background: rgba(31, 107, 69, 0.08);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.5fr);
+        gap: 34px;
+        align-items: end;
+        margin-bottom: 28px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(38px, 5vw, 70px);
+        line-height: 0.98;
+        letter-spacing: -0.07em;
+      }
+
+      .section-head p,
+      .muted {
+        color: var(--muted);
+        line-height: 1.68;
+      }
+
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .tile {
+        min-height: 276px;
+        padding: 25px;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        background: rgba(251, 253, 249, 0.76);
+        box-shadow: 0 18px 54px rgba(67, 42, 19, 0.07);
+      }
+
+      .tile b {
+        display: inline-flex;
+        margin-bottom: 18px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        color: var(--kumkum);
+        background: rgba(255, 90, 61, 0.08);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .tile h3 {
+        margin: 0 0 12px;
+        font-size: 25px;
+        letter-spacing: -0.055em;
+      }
+
+      .tile p {
+        color: var(--muted);
+        line-height: 1.62;
+      }
+
+      .tile ul,
+      .price-card ul {
+        display: grid;
+        gap: 10px;
+        padding: 0;
+        margin: 18px 0 0;
+        list-style: none;
+      }
+
+      .tile li,
+      .price-card li {
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .tile li::before {
+        content: "• ";
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      .stack {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .stack-box {
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        background: rgba(251, 253, 249, 0.72);
+      }
+
+      .stack-box h3 {
+        margin: 0 0 18px;
+        font-size: 30px;
+        letter-spacing: -0.055em;
+      }
+
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pill {
+        padding: 10px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: #50483c;
+        background: rgba(255, 255, 255, 0.36);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .price-card {
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        background: rgba(251, 253, 249, 0.82);
+      }
+
+      .price-card.featured {
+        color: var(--milk);
+        border-color: rgba(251, 253, 249, 0.22);
+        background:
+          radial-gradient(circle at 82% 6%, rgba(0, 166, 200, 0.28), transparent 18rem),
+          linear-gradient(145deg, #0d1724, #123a57 64%, #075c55);
+        transform: translateY(-12px);
+        box-shadow: 0 28px 80px rgba(67, 42, 19, 0.28);
+      }
+
+      .price-card h3 {
+        margin: 0;
+        font-size: 23px;
+        letter-spacing: -0.04em;
+      }
+
+      .price {
+        margin: 20px 0 8px;
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: -0.08em;
+      }
+
+      .price span {
+        font-size: 15px;
+        letter-spacing: -0.02em;
+        opacity: 0.68;
+      }
+
+      .price-card p,
+      .price-card.featured li,
+      .price-card.featured p {
+        color: currentColor;
+        opacity: 0.74;
+      }
+
+      .price-card ul {
+        min-height: 154px;
+        margin: 22px 0 26px;
+      }
+
+      .price-card li::before {
+        content: "✓ ";
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      .price-card.featured li::before {
+        color: var(--marigold);
+      }
+
+      .statement {
+        padding: 46px;
+        border-radius: 38px;
+        color: var(--milk);
+        background:
+          radial-gradient(circle at 16% 0%, rgba(0, 166, 200, 0.28), transparent 22rem),
+          linear-gradient(135deg, #0d1724 0%, #123a57 56%, #1246a0 100%);
+      }
+
+      .ops-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .ops-card {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: rgba(251, 253, 249, 0.78);
+        box-shadow: 0 18px 54px rgba(15, 36, 62, 0.07);
+      }
+
+      .ops-card h3 {
+        margin: 0 0 10px;
+        font-size: 24px;
+        letter-spacing: -0.05em;
+      }
+
+      .ops-card p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .ops-card strong {
+        color: var(--ink);
+      }
+
+      .statement h2 {
+        max-width: 880px;
+      }
+
+      .statement p {
+        max-width: 720px;
+        color: rgba(251, 253, 249, 0.72);
+        line-height: 1.65;
+      }
+
+      footer {
+        padding: 34px 0 46px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .section-head,
+        .stack {
+          grid-template-columns: 1fr;
+        }
+
+        .proof-row,
+        .benchmark-board,
+        .tiles,
+        .pricing,
+        .ops-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .bars {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .price-card.featured {
+          transform: none;
+        }
+
+        .links a:not(.nav-cta) {
+          display: none;
+        }
+
+        .hero-chart {
+          min-height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <nav class="wrap nav">
+        <a class="brand" href="#">
+          <span class="mark">अ</span>
+          <span>Bol.ai</span>
+        </a>
+        <div class="links">
+          <a href="#why">Why us</a>
+          <a href="#stack">Stack</a>
+          <a href="#pricing">Pricing</a>
+          <a class="nav-cta" href="#contact">Get started</a>
+        </div>
+      </nav>
+    </div>
+
+    <main>
+      <header class="wrap hero">
+        <div>
+          <h1>
+            Blazing speed. Simple API. Indian GPUs.
+          </h1>
+          <p class="lead">
+            <strong>Bol.ai hosts top open source AI models in India</strong> with high TPS, low pricing, UPI payments, and OpenAI-compatible APIs.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#pricing">₹5 per million tokens</a>
+            <a class="button" href="#why">See what makes it fast</a>
+          </div>
+          <div class="proof-row">
+            <div class="proof">
+              <strong>OpenAI API</strong>
+              <span>drop-in migration</span>
+            </div>
+            <div class="proof">
+              <strong>High TPS</strong>
+              <span>priority lanes</span>
+            </div>
+            <div class="proof">
+              <strong>India GPUs</strong>
+              <span>private endpoints</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-chart">
+          <div class="mandala"></div>
+          <div class="chart-card">
+            <h2>Higher TPS. Lower entry price.</h2>
+            <p class="chart-sub">
+              Professional benchmark view for a long-context coding-agent lane, including speed-up vs baseline.
+            </p>
+            <img
+              class="chart-image"
+              src="assets/performance-chart.png"
+              alt="Output throughput comparison showing Bol.ai at 400 tokens per second, 2.9x faster than the baseline global API"
+            />
+            <p class="fineprint">
+              TPS varies by model, context, output length, concurrency, and cache hits.
+            </p>
+          </div>
+        </aside>
+      </header>
+
+      <section class="wrap" id="why">
+        <div class="section-head">
+          <h2>What matters: speed, privacy, and serious deployment control.</h2>
+          <p>
+            We are building for Indian startups, SaaS teams, coding-agent companies, and enterprises that want open models without the headache of serving them.
+          </p>
+        </div>
+        <div class="tiles">
+          <article class="tile">
+            <b>01 / Speed</b>
+            <h3>Optimized for real workloads</h3>
+            <p>We tune the serving path for your prompt lengths, concurrency, and latency targets instead of giving everyone the same generic endpoint.</p>
+            <ul>
+              <li>High-TPS coding model lanes</li>
+              <li>Long-context prefill tuning</li>
+              <li>Continuous benchmark reports</li>
+            </ul>
+          </article>
+          <article class="tile">
+            <b>02 / Trust</b>
+            <h3>Indian data residency</h3>
+            <p>Run sensitive workloads closer to home with Indian GPU hosting, private deployments, and zero-retention options.</p>
+            <ul>
+              <li>Private API keys and routing</li>
+              <li>Dedicated endpoint available</li>
+              <li>Enterprise audit path</li>
+            </ul>
+          </article>
+          <article class="tile">
+            <b>03 / Cost</b>
+            <h3>Subscription-first pricing</h3>
+            <p>Start small, then move into reserved throughput when your agents become important to your product.</p>
+            <ul>
+              <li>Plans from ₹999</li>
+              <li>Included usage plus overages</li>
+              <li>Dedicated GPU capacity</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="stack">
+        <div class="section-head">
+          <h2>Under the hood, we optimize where tokens actually slow down.</h2>
+          <p>
+            The visible API is simple. The stack below is where the margin lives: kernels, scheduling, cache, batching, and model-specific routing.
+          </p>
+        </div>
+        <div class="stack">
+          <div class="stack-box">
+            <h3>Model and runtime lane</h3>
+            <div class="pills">
+              <span class="pill">Qwen3.6-35B-A3B-FP8</span>
+              <span class="pill">DeepSeek-ready</span>
+              <span class="pill">GLM/Kimi evaluation</span>
+              <span class="pill">SGLang</span>
+              <span class="pill">OpenAI-compatible API</span>
+              <span class="pill">Streaming responses</span>
+            </div>
+          </div>
+          <div class="stack-box">
+            <h3>Kernel and cache lane</h3>
+            <div class="pills">
+              <span class="pill">FlashQLA prefill</span>
+              <span class="pill">DeepGEMM MoE</span>
+              <span class="pill">FP8 KV cache</span>
+              <span class="pill">Speculative decode</span>
+              <span class="pill">Radix cache</span>
+              <span class="pill">Attention backend tests</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" id="pricing">
+        <div class="section-head">
+          <h2>Bol Pass: simple weekly access to fast models.</h2>
+          <p>
+            Like a model pass, but built for Indian builders: UPI-friendly, request-window based, and simple enough to understand in one glance.
+          </p>
+        </div>
+        <div class="pricing">
+          <article class="price-card">
+            <h3>Starter Pass</h3>
+            <div class="price">₹999<span>/week</span></div>
+            <p>Solo builders, prototypes, and daily agents.</p>
+            <ul>
+              <li>1,000 requests per 5-hour window</li>
+              <li>Access to hosted open source models</li>
+              <li>OpenAI-compatible API</li>
+              <li>UPI, card, and netbanking</li>
+              <li>Community support</li>
+            </ul>
+            <a class="button" href="#contact">Start building</a>
+          </article>
+          <article class="price-card featured">
+            <h3>Privacy Pass</h3>
+            <div class="price">₹2,499<span>/week</span></div>
+            <p>Production agents and sensitive workloads.</p>
+            <ul>
+              <li>2,000 requests per 5-hour window</li>
+              <li>Zero data retention option</li>
+              <li>Priority model access</li>
+              <li>UPI Autopay or invoice</li>
+              <li>Email support</li>
+            </ul>
+            <a class="button primary" href="#contact">Get started</a>
+          </article>
+          <article class="price-card">
+            <h3>Turbo Pass</h3>
+            <div class="price">₹9,999<span>/week</span></div>
+            <p>Teams that need higher speed and long-context agents.</p>
+            <ul>
+              <li>10,000 requests per 5-hour window</li>
+              <li>High-TPS priority lane</li>
+              <li>Long-context presets</li>
+              <li>GST invoice and UPI transfer</li>
+              <li>Benchmark summary</li>
+            </ul>
+            <a class="button" href="#contact">Talk to us</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <h2>Payment, usage, and dashboard stack.</h2>
+          <p>
+            The current page is static, so no libraries are installed yet. When we turn this into a real product, this is the clean stack I would use.
+          </p>
+        </div>
+        <div class="ops-grid">
+          <article class="ops-card">
+            <h3>Payments</h3>
+            <p><strong>Razorpay</strong> for UPI, cards, subscriptions, payment links, GST invoices, and webhooks. Keep Stripe only for international customers later.</p>
+          </article>
+          <article class="ops-card">
+            <h3>Dashboard</h3>
+            <p><strong>Next.js + shadcn/ui + Recharts</strong> for usage graphs, request windows, invoices, API keys, and plan upgrades.</p>
+          </article>
+          <article class="ops-card">
+            <h3>Metering</h3>
+            <p><strong>Postgres + ClickHouse</strong> for tokens, requests, latency, TPS, model usage, and customer-level billing reports.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="contact">
+        <div class="statement">
+          <h2>Bring a workload. Bol.ai brings the fastest path to serve it from India.</h2>
+          <p>
+            Tell us the model, context length, target TPS, and budget. We will benchmark the stack and show the clearest path before you commit to a plan.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="mailto:hello@bol.ai">hello@bol.ai</a>
+            <a class="button" href="#pricing">View pricing</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer">
+        <span>© 2026 Bol.ai. India-hosted AI inference infrastructure.</span>
+        <span>Fast Indian inference for open-weight models.</span>
+      </div>
+    </footer>
+  </body>
+</html>
+

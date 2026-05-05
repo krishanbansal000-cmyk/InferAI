@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bol.ai | Dashboard</title>
+    <title>Karya.ai | Dashboard</title>
     <script src="chart.umd.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
@@ -59,65 +59,19 @@
         letter-spacing: -0.04em;
       }
 
-      .mark {
-        display: grid;
+      .logo-icon {
         width: 32px;
         height: 32px;
-        place-items: center;
-        position: relative;
-        color: var(--milk);
         border-radius: 9px;
-        background: linear-gradient(135deg, var(--violet), var(--teal) 56%, var(--green));
-        font-size: 0;
+        background: linear-gradient(135deg, #FF9933, #f59e0b 40%, #138808);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 900;
+        font-size: 14px;
+        box-shadow: 0 8px 16px rgba(245, 158, 11, 0.15);
       }
-
-      .mark::before {
-        width: 14px;
-        height: 14px;
-        content: "";
-        border: 2.5px solid currentColor;
-        border-right-color: transparent;
-        border-radius: 50%;
-        transform: rotate(-35deg);
-      }
-
-      .mark::after {
-        position: absolute;
-        right: 5px;
-        bottom: 5px;
-        width: 5px;
-        height: 5px;
-        content: "";
-        border-radius: 50%;
-        background: var(--marigold);
-      }
-
-      .india-flag {
-        display: inline-flex;
-        flex-direction: column;
-        width: 18px;
-        height: 12px;
-        border-radius: 2px;
-        overflow: hidden;
-        border: 1px solid rgba(26, 26, 26, 0.08);
-        flex-shrink: 0;
-      }
-
-      .india-flag span { flex: 1; }
-      .saffron { background: #FF9933; }
-      .white-stripe { background: #FFFFFF; position: relative; }
-      .white-stripe::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 3px;
-        height: 3px;
-        border-radius: 50%;
-        background: #000080;
-        transform: translate(-50%, -50%);
-      }
-      .green-stripe { background: #138808; }
 
       .nav-links {
         display: flex;
@@ -495,15 +449,14 @@
   <body>
     <div class="topbar">
       <nav class="nav">
-        <a class="brand" href="index.html">
-          <span class="mark"></span>
-          <span>Bol.ai</span>
-          <span class="india-flag"><span class="saffron"></span><span class="white-stripe"></span><span class="green-stripe"></span></span>
+        <a class="brand" href="/">
+          <div class="logo-icon">&#x0915;</div>
+          <span>Karya.ai</span>
         </a>
         <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="chat.html">Chat</a>
-          <a href="dashboard.html" class="active">Dashboard</a>
+          <a href="/">Home</a>
+          <a href="/chat">Chat</a>
+          <a href="/dashboard" class="active">Dashboard</a>
         </div>
       </nav>
     </div>
@@ -599,12 +552,12 @@
         <div class="cta-card">
           <h3>Upgrade plan</h3>
           <p>Move to Turbo Pass for 10K requests per window and high-TPS lanes.</p>
-          <a class="cta-btn primary" href="index.html#pricing">View plans</a>
+          <a class="cta-btn primary" href="/#pricing">View plans</a>
         </div>
         <div class="cta-card">
           <h3>Try a model</h3>
           <p>Chat with our hosted models directly and test inference speed.</p>
-          <a class="cta-btn" href="chat.html">Open chat</a>
+          <a class="cta-btn" href="/chat">Open chat</a>
         </div>
         <div class="cta-card">
           <h3>API docs</h3>
@@ -720,8 +673,8 @@
           .then(function (data) { keys = data; renderKeys(); })
           .catch(function () {
             keys = [
-              { id: "1", name: "Production", prefix: "bol_sk_...xK4m", status: "active" },
-              { id: "2", name: "Staging", prefix: "bol_sk_...pQ7n", status: "active" },
+              { id: "1", name: "Production", prefix: "karya_sk_...xK4m", status: "active" },
+              { id: "2", name: "Staging", prefix: "karya_sk_...pQ7n", status: "active" },
             ];
             renderKeys();
           });
@@ -754,11 +707,11 @@
             loadKeys();
           })
           .catch(function () {
-            var fakeKey = "bol_sk_" + crypto.randomUUID().replace(/-/g, "");
+            var fakeKey = "karya_sk_" + crypto.randomUUID().replace(/-/g, "");
             newKeyBanner.classList.add("visible");
             newKeyValue.textContent = fakeKey;
             newKeyName.value = "";
-            keys.push({ id: String(keys.length + 1), name: name, prefix: "bol_sk_..." + fakeKey.slice(-4), status: "active" });
+            keys.push({ id: String(keys.length + 1), name: name, prefix: "karya_sk_..." + fakeKey.slice(-4), status: "active" });
             renderKeys();
           });
       });

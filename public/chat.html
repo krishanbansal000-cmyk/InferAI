@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bol.ai | Chat</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap");
+
+      :root {
+        --ink: #1a1a1a;
+        --muted: #6b7280;
+        --milk: #faf8f5;
+        --marigold: #f59e0b;
+        --violet: #7c3aed;
+        --green: #059669;
+        --teal: #0d9488;
+        --line: rgba(26, 26, 26, 0.08);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+
+      body {
+        font-family: "Inter", -apple-system, sans-serif;
+        color: var(--ink);
+        background: linear-gradient(160deg, #faf8f5 0%, #f0ebe4 50%, #f5f0eb 100%);
+        display: flex;
+        flex-direction: column;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: rgba(250, 248, 245, 0.85);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 56px;
+        max-width: 1180px;
+        margin: 0 auto;
+        width: calc(100% - 36px);
+      }
+
+      .brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 900;
+        font-size: 18px;
+        letter-spacing: -0.04em;
+      }
+
+      .mark {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        position: relative;
+        color: var(--milk);
+        border-radius: 9px;
+        background: linear-gradient(135deg, var(--violet), var(--teal) 56%, var(--green));
+        box-shadow: 0 10px 20px rgba(124, 58, 237, 0.12);
+        font-size: 0;
+      }
+
+      .mark::before {
+        width: 14px;
+        height: 14px;
+        content: "";
+        border: 2.5px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        transform: rotate(-35deg);
+      }
+
+      .mark::after {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 5px;
+        height: 5px;
+        content: "";
+        border-radius: 50%;
+        background: var(--marigold);
+      }
+
+      .india-flag {
+        display: inline-flex;
+        flex-direction: column;
+        width: 18px;
+        height: 12px;
+        border-radius: 2px;
+        overflow: hidden;
+        border: 1px solid rgba(26, 26, 26, 0.08);
+        flex-shrink: 0;
+      }
+
+      .india-flag span { flex: 1; }
+      .saffron { background: #FF9933; }
+      .white-stripe { background: #FFFFFF; position: relative; }
+      .white-stripe::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #000080;
+        transform: translate(-50%, -50%);
+      }
+      .green-stripe { background: #138808; }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .nav-links a:hover { color: var(--ink); }
+      .nav-links .active { color: var(--ink); }
+
+      .chat-layout {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 780px;
+        width: calc(100% - 36px);
+        margin: 0 auto;
+        padding: 16px 0;
+      }
+
+      .model-selector {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .model-selector label {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--muted);
+      }
+
+      .model-select {
+        padding: 7px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(250, 248, 245, 0.9);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .model-select:focus { outline: 2px solid var(--teal); }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 0;
+        min-height: 280px;
+      }
+
+      .msg {
+        display: flex;
+        gap: 10px;
+        max-width: 85%;
+      }
+
+      .msg.user {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+      }
+
+      .msg-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        font-weight: 900;
+        flex-shrink: 0;
+      }
+
+      .msg.assistant .msg-avatar {
+        background: linear-gradient(135deg, var(--violet), var(--teal));
+        color: var(--milk);
+      }
+
+      .msg.user .msg-avatar {
+        background: var(--ink);
+        color: var(--milk);
+      }
+
+      .msg-bubble {
+        padding: 12px 16px;
+        border-radius: 16px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .msg.assistant .msg-bubble {
+        background: rgba(250, 248, 245, 0.92);
+        border: 1px solid var(--line);
+        border-top-left-radius: 4px;
+      }
+
+      .msg.user .msg-bubble {
+        background: var(--ink);
+        color: var(--milk);
+        border-top-right-radius: 4px;
+      }
+
+      .msg-bubble code {
+        background: rgba(26, 26, 26, 0.05);
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family: monospace;
+      }
+
+      .msg.user .msg-bubble code {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 6px 0;
+      }
+
+      .typing-indicator span {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--muted);
+        animation: typing 1.2s ease-in-out infinite;
+      }
+
+      .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+      .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+      @keyframes typing {
+        0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+        30% { opacity: 1; transform: translateY(-3px); }
+      }
+
+      .chat-input-area {
+        display: flex;
+        gap: 8px;
+        align-items: flex-end;
+        padding: 14px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .chat-input {
+        flex: 1;
+        min-height: 44px;
+        max-height: 140px;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(250, 248, 245, 0.9);
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--ink);
+        resize: none;
+        line-height: 1.4;
+      }
+
+      .chat-input:focus { outline: 2px solid var(--teal); border-color: transparent; }
+      .chat-input::placeholder { color: var(--muted); }
+
+      .send-btn {
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--violet), var(--teal));
+        color: var(--milk);
+        font-size: 18px;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: transform 0.15s ease;
+        flex-shrink: 0;
+      }
+
+      .send-btn:hover { transform: scale(1.05); }
+      .send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+      .chat-footer {
+        text-align: center;
+        padding: 6px 0;
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      .welcome-card {
+        text-align: center;
+        padding: 36px 18px;
+      }
+
+      .welcome-card h2 {
+        font-size: 22px;
+        letter-spacing: -0.03em;
+        margin-bottom: 6px;
+      }
+
+      .welcome-card p {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 18px;
+      }
+
+      .suggestions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+      }
+
+      .suggestion {
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(250, 248, 245, 0.8);
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .suggestion:hover {
+        background: rgba(250, 248, 245, 1);
+        color: var(--ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <nav class="nav">
+        <a class="brand" href="index.html">
+          <span class="mark"></span>
+          <span>Bol.ai</span>
+          <span class="india-flag"><span class="saffron"></span><span class="white-stripe"></span><span class="green-stripe"></span></span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="chat.html" class="active">Chat</a>
+          <a href="dashboard.html">Dashboard</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="chat-layout">
+      <div class="model-selector">
+        <label>Model:</label>
+        <select class="model-select" id="modelSelect">
+          <option>Qwen3-35B-A3B</option>
+          <option>DeepSeek-V3</option>
+          <option>GLM-4</option>
+        </select>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="welcome-card" id="welcomeCard">
+          <h2>Try Bol.ai for free</h2>
+          <p>Chat with India-hosted open-weight models. Fast, private, &#x20B9;5/million tokens.</p>
+          <div class="suggestions">
+            <button class="suggestion" data-msg="Write a Python function to sort a list">Sort function in Python</button>
+            <button class="suggestion" data-msg="Explain FP8 quantization in simple terms">Explain FP8 quantization</button>
+            <button class="suggestion" data-msg="What are the benefits of Indian data residency?">Indian data residency</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chatInput" placeholder="Type a message..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn" disabled>&#x27A4;</button>
+      </div>
+
+      <div class="chat-footer">Bol.ai may produce inaccurate information. Verify important facts.</div>
+    </div>
+
+    <script>
+    (function () {
+      const input = document.getElementById("chatInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const messages = document.getElementById("chatMessages");
+      const welcomeCard = document.getElementById("welcomeCard");
+
+      input.addEventListener("input", function () {
+        this.style.height = "auto";
+        this.style.height = Math.min(this.scrollHeight, 140) + "px";
+        sendBtn.disabled = !this.value.trim();
+      });
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          if (this.value.trim()) sendMessage();
+        }
+      });
+
+      sendBtn.addEventListener("click", function () {
+        if (input.value.trim()) sendMessage();
+      });
+
+      document.querySelectorAll(".suggestion").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          input.value = this.dataset.msg;
+          sendBtn.disabled = false;
+          sendMessage();
+        });
+      });
+
+      const responses = [
+        "That's a great question! Let me think through this step by step.\n\nBased on the context, the key considerations are:\n\n1. **Performance** - Using optimized inference kernels significantly reduces latency\n2. **Cost** - At just \u20b95 per million tokens, it's highly competitive\n3. **Privacy** - Data stays within Indian borders\n\nWould you like me to dive deeper into any of these points?",
+        "Here's a quick implementation:\n\n```python\ndef sort_list(items):\n    return sorted(items, key=lambda x: x if isinstance(x, (int, float)) else str(x))\n```\n\nThis handles mixed types gracefully. For production use, add type validation and error handling.",
+        "FP8 quantization stores weights and activations in 8-bit floating point instead of 16-bit (FP16) or 32-bit (FP32).\n\n**Benefits:**\n- 2x memory reduction vs FP16\n- 2x throughput on compatible GPUs\n- Minimal quality loss for inference\n\nAt Bol.ai, we use FP8 KV cache to serve long-context models efficiently on Indian-hosted GPUs.",
+        "Indian data residency means your data is processed and stored on servers physically located in India.\n\n**Why it matters:**\n- Compliance with Indian data protection laws\n- Lower latency for Indian users\n- Sovereign control over sensitive data\n\nBol.ai provides zero-retention options and private endpoints for strict data governance."
+      ];
+
+      let responseIndex = 0;
+
+      function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+        if (welcomeCard) welcomeCard.remove();
+
+        addMessage("user", text);
+        input.value = "";
+        input.style.height = "auto";
+        sendBtn.disabled = true;
+
+        const typingEl = addTyping();
+
+        setTimeout(function () {
+          typingEl.remove();
+          addMessage("assistant", responses[responseIndex % responses.length]);
+          responseIndex++;
+        }, 1000 + Math.random() * 600);
+      }
+
+      function addMessage(role, text) {
+        const div = document.createElement("div");
+        div.className = "msg " + role;
+        const avatar = document.createElement("div");
+        avatar.className = "msg-avatar";
+        avatar.textContent = role === "assistant" ? "B" : "U";
+        const bubble = document.createElement("div");
+        bubble.className = "msg-bubble";
+        bubble.innerHTML = formatText(text);
+        div.appendChild(avatar);
+        div.appendChild(bubble);
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function addTyping() {
+        const div = document.createElement("div");
+        div.className = "msg assistant";
+        const avatar = document.createElement("div");
+        avatar.className = "msg-avatar";
+        avatar.textContent = "B";
+        const bubble = document.createElement("div");
+        bubble.className = "msg-bubble";
+        bubble.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+        div.appendChild(avatar);
+        div.appendChild(bubble);
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+        return div;
+      }
+
+      function formatText(text) {
+        return text
+          .replace(/```(\w*)\n([\s\S]*?)```/g, "<code>$2</code>")
+          .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\n/g, "<br>");
+      }
+    })();
+    </script>
+  </body>
+</html>

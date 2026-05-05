@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bol.ai | Dashboard</title>
+    <script src="chart.umd.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+      :root {
+        --ink: #1a1a1a;
+        --muted: #6b7280;
+        --milk: #faf8f5;
+        --marigold: #f59e0b;
+        --violet: #7c3aed;
+        --green: #059669;
+        --teal: #0d9488;
+        --rose: #e11d48;
+        --line: rgba(26, 26, 26, 0.08);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: "Inter", -apple-system, sans-serif;
+        color: var(--ink);
+        background: linear-gradient(160deg, #faf8f5 0%, #f0ebe4 50%, #f5f0eb 100%);
+        min-height: 100vh;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: rgba(250, 248, 245, 0.85);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 60px;
+        max-width: 1180px;
+        margin: 0 auto;
+        width: calc(100% - 36px);
+      }
+
+      .brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 900;
+        font-size: 18px;
+        letter-spacing: -0.04em;
+      }
+
+      .mark {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        position: relative;
+        color: var(--milk);
+        border-radius: 9px;
+        background: linear-gradient(135deg, var(--violet), var(--teal) 56%, var(--green));
+        font-size: 0;
+      }
+
+      .mark::before {
+        width: 14px;
+        height: 14px;
+        content: "";
+        border: 2.5px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        transform: rotate(-35deg);
+      }
+
+      .mark::after {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 5px;
+        height: 5px;
+        content: "";
+        border-radius: 50%;
+        background: var(--marigold);
+      }
+
+      .india-flag {
+        display: inline-flex;
+        flex-direction: column;
+        width: 18px;
+        height: 12px;
+        border-radius: 2px;
+        overflow: hidden;
+        border: 1px solid rgba(26, 26, 26, 0.08);
+        flex-shrink: 0;
+      }
+
+      .india-flag span { flex: 1; }
+      .saffron { background: #FF9933; }
+      .white-stripe { background: #FFFFFF; position: relative; }
+      .white-stripe::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #000080;
+        transform: translate(-50%, -50%);
+      }
+      .green-stripe { background: #138808; }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .nav-links a:hover { color: var(--ink); }
+      .nav-links .active { color: var(--ink); }
+
+      .dashboard {
+        max-width: 1180px;
+        width: calc(100% - 36px);
+        margin: 0 auto;
+        padding: 24px 0 60px;
+      }
+
+      .dash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .dash-header h1 {
+        font-size: 26px;
+        letter-spacing: -0.04em;
+      }
+
+      .dash-header p {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 3px;
+      }
+
+      .plan-badge {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 7px 14px;
+        border: 1px solid rgba(5, 150, 105, 0.2);
+        border-radius: 999px;
+        color: var(--green);
+        background: rgba(250, 248, 245, 0.7);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .plan-badge::before {
+        width: 6px;
+        height: 6px;
+        content: "";
+        border-radius: 50%;
+        background: var(--green);
+      }
+
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(250, 248, 245, 0.8);
+      }
+
+      .stat-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .stat-value {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -0.05em;
+        margin-top: 5px;
+      }
+
+      .stat-value.teal { color: var(--teal); }
+      .stat-value.green { color: var(--green); }
+      .stat-value.violet { color: var(--violet); }
+
+      .stat-sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(250, 248, 245, 0.8);
+      }
+
+      .card h3 {
+        font-size: 15px;
+        letter-spacing: -0.02em;
+        margin-bottom: 16px;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 200px;
+      }
+
+      .key-list { display: grid; gap: 0; }
+
+      .key-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .key-name { font-weight: 800; font-size: 13px; }
+
+      .key-prefix {
+        font-family: monospace;
+        font-size: 11px;
+        color: var(--muted);
+        background: rgba(26, 26, 26, 0.04);
+        padding: 3px 8px;
+        border-radius: 6px;
+        margin-top: 2px;
+      }
+
+      .key-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .key-status {
+        font-size: 10px;
+        font-weight: 900;
+        padding: 3px 10px;
+        border-radius: 999px;
+      }
+
+      .key-status.active {
+        color: var(--green);
+        background: rgba(5, 150, 105, 0.06);
+      }
+
+      .key-status.revoked {
+        color: var(--muted);
+        background: rgba(107, 114, 128, 0.06);
+      }
+
+      .key-btn {
+        border: none;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .key-btn.revoke {
+        color: var(--rose);
+        background: rgba(225, 29, 72, 0.06);
+      }
+
+      .key-btn.copy {
+        color: var(--violet);
+        background: rgba(124, 58, 237, 0.06);
+      }
+
+      .add-key-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .add-key-input {
+        flex: 1;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(250, 248, 245, 0.9);
+        font-family: inherit;
+        font-size: 12px;
+        color: var(--ink);
+      }
+
+      .add-key-input:focus {
+        outline: 2px solid var(--teal);
+        border-color: transparent;
+      }
+
+      .add-key-input::placeholder { color: var(--muted); }
+
+      .add-key-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--milk);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .new-key-banner {
+        margin-top: 10px;
+        padding: 10px 14px;
+        border: 1px solid rgba(5, 150, 105, 0.2);
+        border-radius: 12px;
+        background: rgba(5, 150, 105, 0.04);
+        font-size: 12px;
+        display: none;
+      }
+
+      .new-key-banner.visible { display: block; }
+
+      .new-key-banner strong {
+        color: var(--green);
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .new-key-banner code {
+        font-family: monospace;
+        font-size: 11px;
+        background: rgba(26, 26, 26, 0.05);
+        padding: 4px 8px;
+        border-radius: 6px;
+        word-break: break-all;
+      }
+
+      .window-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(26, 26, 26, 0.05);
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .window-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--green), var(--teal));
+      }
+
+      .window-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        font-weight: 800;
+        margin-top: 6px;
+      }
+
+      .window-labels span:first-child { color: var(--green); }
+      .window-labels span:last-child { color: var(--muted); }
+
+      .reset-timer {
+        margin-top: 14px;
+      }
+
+      .reset-label {
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+
+      .reset-value {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+      }
+
+      .model-usage { display: grid; gap: 10px; }
+
+      .model-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .model-name { font-weight: 800; font-size: 13px; }
+      .model-tokens { font-size: 12px; color: var(--muted); font-weight: 700; }
+      .model-pct { font-weight: 900; font-size: 12px; color: var(--green); }
+
+      .invoices { display: grid; gap: 0; }
+
+      .invoice-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+      }
+
+      .invoice-row strong { letter-spacing: -0.01em; }
+      .invoice-row span { color: var(--muted); font-weight: 700; }
+      .invoice-amount { font-weight: 900; color: var(--ink) !important; }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .cta-card {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(250, 248, 245, 0.8);
+        text-align: center;
+      }
+
+      .cta-card h3 {
+        font-size: 16px;
+        letter-spacing: -0.03em;
+        margin-bottom: 6px;
+      }
+
+      .cta-card p {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 14px;
+        line-height: 1.5;
+      }
+
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 12px;
+        border: 1px solid var(--line);
+        background: rgba(250, 248, 245, 0.8);
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .cta-btn.primary {
+        background: var(--ink);
+        color: var(--milk);
+        border-color: var(--ink);
+      }
+
+      @media (max-width: 768px) {
+        .stats-row { grid-template-columns: repeat(2, 1fr); }
+        .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <nav class="nav">
+        <a class="brand" href="index.html">
+          <span class="mark"></span>
+          <span>Bol.ai</span>
+          <span class="india-flag"><span class="saffron"></span><span class="white-stripe"></span><span class="green-stripe"></span></span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="chat.html">Chat</a>
+          <a href="dashboard.html" class="active">Dashboard</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="dashboard">
+      <div class="dash-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Your usage at a glance.</p>
+        </div>
+        <span class="plan-badge">Privacy Pass</span>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Requests today</div>
+          <div class="stat-value teal" id="statRequests">1,247</div>
+          <div class="stat-sub">of 2,000 window limit</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Tokens this week</div>
+          <div class="stat-value violet">4.2M</div>
+          <div class="stat-sub">~&#x20B9;21 spent</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg TPS</div>
+          <div class="stat-value green">312</div>
+          <div class="stat-sub">tokens per second</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">P50 latency</div>
+          <div class="stat-value">86<span style="font-size:14px;opacity:.5">ms</span></div>
+          <div class="stat-sub">first token time</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Usage this week</h3>
+          <div class="chart-container">
+            <canvas id="usageChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>API keys</h3>
+          <div class="key-list" id="keyList"></div>
+          <div class="new-key-banner" id="newKeyBanner">
+            <strong>Copy your key now. It won't be shown again.</strong>
+            <code id="newKeyValue"></code>
+          </div>
+          <div class="add-key-row">
+            <input class="add-key-input" id="newKeyName" placeholder="Key name (e.g. Production)" />
+            <button class="add-key-btn" id="addKeyBtn">Create key</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Request window</h3>
+          <div class="window-bar">
+            <div class="window-fill" style="width: 62%"></div>
+          </div>
+          <div class="window-labels">
+            <span>1,247 used</span>
+            <span>753 remaining</span>
+          </div>
+          <div class="reset-timer">
+            <div class="reset-label">Window resets in</div>
+            <div class="reset-value">2h 14m</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Model breakdown</h3>
+          <div class="chart-container" style="height:160px">
+            <canvas id="modelChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px">
+        <h3>Invoices</h3>
+        <div class="invoices">
+          <div class="invoice-row"><strong>Week 18, May 2026</strong><span>Privacy Pass</span><span class="invoice-amount">&#x20B9;2,499</span></div>
+          <div class="invoice-row"><strong>Week 17, May 2026</strong><span>Privacy Pass</span><span class="invoice-amount">&#x20B9;2,499</span></div>
+          <div class="invoice-row"><strong>Week 16, Apr 2026</strong><span>Starter Pass</span><span class="invoice-amount">&#x20B9;999</span></div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="cta-card">
+          <h3>Upgrade plan</h3>
+          <p>Move to Turbo Pass for 10K requests per window and high-TPS lanes.</p>
+          <a class="cta-btn primary" href="index.html#pricing">View plans</a>
+        </div>
+        <div class="cta-card">
+          <h3>Try a model</h3>
+          <p>Chat with our hosted models directly and test inference speed.</p>
+          <a class="cta-btn" href="chat.html">Open chat</a>
+        </div>
+        <div class="cta-card">
+          <h3>API docs</h3>
+          <p>OpenAI-compatible endpoints. Drop-in migration in 5 minutes.</p>
+          <a class="cta-btn" href="#">Coming soon</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      const usageData = [580, 720, 440, 910, 640, 1050, 840];
+
+      new Chart(document.getElementById("usageChart"), {
+        type: "bar",
+        data: {
+          labels: days,
+          datasets: [{
+            data: usageData,
+            backgroundColor: [
+              "rgba(13, 148, 136, 0.5)",
+              "rgba(13, 148, 136, 0.5)",
+              "rgba(107, 114, 128, 0.25)",
+              "rgba(5, 150, 105, 0.6)",
+              "rgba(13, 148, 136, 0.5)",
+              "rgba(5, 150, 105, 0.7)",
+              "rgba(13, 148, 136, 0.5)",
+            ],
+            borderRadius: 6,
+            borderSkipped: false,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: "rgba(26, 26, 26, 0.04)" },
+              ticks: { font: { family: "Inter", size: 10, weight: "700" }, color: "#6b7280" },
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { family: "Inter", size: 10, weight: "700" }, color: "#6b7280" },
+            },
+          },
+        },
+      });
+
+      new Chart(document.getElementById("modelChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Qwen3-35B-A3B", "DeepSeek-V3", "GLM-4"],
+          datasets: [{
+            data: [67, 26, 7],
+            backgroundColor: ["rgba(13, 148, 136, 0.6)", "rgba(124, 58, 237, 0.5)", "rgba(245, 158, 11, 0.5)"],
+            borderWidth: 0,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "65%",
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                font: { family: "Inter", size: 11, weight: "700" },
+                color: "#6b7280",
+                padding: 12,
+                usePointStyle: true,
+                pointStyleWidth: 8,
+              },
+            },
+          },
+        },
+      });
+
+      const keyList = document.getElementById("keyList");
+      const newKeyName = document.getElementById("newKeyName");
+      const addKeyBtn = document.getElementById("addKeyBtn");
+      const newKeyBanner = document.getElementById("newKeyBanner");
+      const newKeyValue = document.getElementById("newKeyValue");
+
+      let keys = [];
+
+      function renderKeys() {
+        keyList.innerHTML = "";
+        keys.forEach(function (k) {
+          const row = document.createElement("div");
+          row.className = "key-row";
+          row.innerHTML =
+            '<div><div class="key-name">' + k.name + '</div><div class="key-prefix">' + k.prefix + '</div></div>' +
+            '<div class="key-actions">' +
+              '<span class="key-status ' + k.status + '">' + k.status + '</span>' +
+              (k.status === "active" ? '<button class="key-btn revoke" data-id="' + k.id + '">Revoke</button>' : "") +
+            '</div>';
+          keyList.appendChild(row);
+        });
+
+        keyList.querySelectorAll(".key-btn.revoke").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            revokeKey(this.dataset.id);
+          });
+        });
+      }
+
+      function loadKeys() {
+        fetch("/api/keys")
+          .then(function (r) { return r.json(); })
+          .then(function (data) { keys = data; renderKeys(); })
+          .catch(function () {
+            keys = [
+              { id: "1", name: "Production", prefix: "bol_sk_...xK4m", status: "active" },
+              { id: "2", name: "Staging", prefix: "bol_sk_...pQ7n", status: "active" },
+            ];
+            renderKeys();
+          });
+      }
+
+      function revokeKey(id) {
+        fetch("/api/keys/" + id, { method: "DELETE" })
+          .then(function () { loadKeys(); })
+          .catch(function () {
+            var k = keys.find(function (k) { return k.id === id; });
+            if (k) k.status = "revoked";
+            renderKeys();
+          });
+      }
+
+      addKeyBtn.addEventListener("click", function () {
+        var name = newKeyName.value.trim();
+        if (!name) return;
+
+        fetch("/api/keys", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name }),
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            newKeyBanner.classList.add("visible");
+            newKeyValue.textContent = data.fullKey;
+            newKeyName.value = "";
+            loadKeys();
+          })
+          .catch(function () {
+            var fakeKey = "bol_sk_" + crypto.randomUUID().replace(/-/g, "");
+            newKeyBanner.classList.add("visible");
+            newKeyValue.textContent = fakeKey;
+            newKeyName.value = "";
+            keys.push({ id: String(keys.length + 1), name: name, prefix: "bol_sk_..." + fakeKey.slice(-4), status: "active" });
+            renderKeys();
+          });
+      });
+
+      loadKeys();
+    })();
+    </script>
+  </body>
+</html>

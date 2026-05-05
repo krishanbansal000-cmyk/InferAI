@@ -1,0 +1,1036 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bol.ai | India-Hosted AI Inference Infrastructure</title>
+    <meta name="description" content="India-hosted optimized inference for open-weight AI models. Fast APIs, private endpoints, long-context coding models, and GPU performance engineering." />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap");
+
+      :root {
+        --ink: #1a1a1a;
+        --muted: #6b7280;
+        --sand: #f5f0eb;
+        --milk: #faf8f5;
+        --marigold: #f59e0b;
+        --kumkum: #ef4444;
+        --violet: #7c3aed;
+        --green: #059669;
+        --teal: #0d9488;
+        --rose: #e11d48;
+        --line: rgba(26, 26, 26, 0.08);
+        --shadow: 0 24px 70px rgba(26, 26, 26, 0.1);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Inter", -apple-system, sans-serif;
+        background: linear-gradient(160deg, #faf8f5 0%, #f0ebe4 50%, #f5f0eb 100%);
+      }
+
+      #gpu-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .content-layer {
+        position: relative;
+        z-index: 1;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .wrap {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: rgba(250, 248, 245, 0.85);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 64px;
+      }
+
+      .brand {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 900;
+        font-size: 20px;
+        letter-spacing: -0.04em;
+      }
+
+      .mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        position: relative;
+        color: var(--milk);
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--violet), var(--teal) 56%, var(--green));
+        box-shadow: 0 12px 24px rgba(124, 58, 237, 0.15);
+        font-size: 0;
+      }
+
+      .mark::before {
+        width: 15px;
+        height: 15px;
+        content: "";
+        border: 2.5px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        transform: rotate(-35deg);
+      }
+
+      .mark::after {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 6px;
+        height: 6px;
+        content: "";
+        border-radius: 50%;
+        background: var(--marigold);
+      }
+
+      .india-flag {
+        display: inline-flex;
+        flex-direction: column;
+        width: 20px;
+        height: 14px;
+        border-radius: 2px;
+        overflow: hidden;
+        border: 1px solid rgba(26, 26, 26, 0.1);
+        flex-shrink: 0;
+      }
+
+      .india-flag span { flex: 1; }
+      .saffron { background: #FF9933; }
+      .white-stripe { background: #FFFFFF; position: relative; }
+      .white-stripe::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #000080;
+        transform: translate(-50%, -50%);
+      }
+      .green-stripe { background: #138808; }
+
+      .links {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .links a:hover { color: var(--ink); }
+
+      .nav-cta {
+        padding: 8px 16px;
+        border-radius: 999px;
+        color: var(--milk);
+        background: var(--ink);
+        font-weight: 800;
+        font-size: 13px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        padding: 40px 0 40px;
+      }
+
+      .label {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 12px;
+        border: 1px solid rgba(5, 150, 105, 0.2);
+        border-radius: 999px;
+        color: var(--green);
+        background: rgba(250, 248, 245, 0.7);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .label::before {
+        width: 7px;
+        height: 7px;
+        content: "";
+        border-radius: 999px;
+        background: var(--green);
+      }
+
+      h1 {
+        max-width: 660px;
+        margin: 18px 0 16px;
+        font-size: clamp(36px, 5vw, 58px);
+        line-height: 1.0;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        max-width: 580px;
+        color: #4a4540;
+        font-size: 17px;
+        line-height: 1.6;
+        letter-spacing: -0.02em;
+      }
+
+      .lead strong { color: var(--ink); }
+
+      .lowest-price-banner {
+        display: inline-flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 18px;
+        padding: 12px 18px;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 14px;
+        background: rgba(245, 158, 11, 0.05);
+      }
+
+      .price-highlight {
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: -0.06em;
+        color: var(--green);
+      }
+
+      .lowest-price-banner strong {
+        display: block;
+        font-size: 14px;
+        letter-spacing: -0.02em;
+      }
+
+      .lowest-price-banner span {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-top: 24px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 20px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(250, 248, 245, 0.8);
+        font-weight: 800;
+        font-size: 14px;
+        font-family: inherit;
+      }
+
+      .button.primary {
+        color: var(--milk);
+        background: var(--ink);
+        box-shadow: 0 12px 30px rgba(26, 26, 26, 0.15);
+      }
+
+      .proof-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .proof {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(250, 248, 245, 0.7);
+      }
+
+      .proof strong {
+        display: block;
+        font-size: 20px;
+        letter-spacing: -0.05em;
+      }
+
+      .proof span {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .hero-chart {
+        position: relative;
+        overflow: hidden;
+        min-height: 420px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        background:
+          radial-gradient(circle at 70% 10%, rgba(13, 148, 136, 0.1), transparent 20rem),
+          linear-gradient(145deg, rgba(250, 248, 245, 0.9), rgba(240, 235, 228, 0.9));
+        box-shadow: var(--shadow);
+      }
+
+      .hero-chart h2 {
+        font-size: clamp(18px, 2vw, 24px);
+        letter-spacing: -0.03em;
+      }
+
+      .chart-image {
+        display: block;
+        width: 100%;
+        margin-top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--milk);
+        box-shadow: 0 12px 40px rgba(26, 26, 26, 0.06);
+      }
+
+      .fineprint {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      section { padding: 64px 0; }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        align-items: end;
+        margin-bottom: 24px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(32px, 4.5vw, 56px);
+        line-height: 1.0;
+        letter-spacing: -0.06em;
+      }
+
+      .section-head p {
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .tile {
+        min-height: 260px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(250, 248, 245, 0.75);
+        box-shadow: 0 10px 40px rgba(26, 26, 26, 0.04);
+      }
+
+      .tile b {
+        display: inline-flex;
+        margin-bottom: 14px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        color: var(--violet);
+        background: rgba(124, 58, 237, 0.06);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .tile:nth-child(2) b { color: var(--teal); background: rgba(13, 148, 136, 0.06); }
+      .tile:nth-child(3) b { color: var(--marigold); background: rgba(245, 158, 11, 0.06); }
+
+      .tile h3 {
+        margin: 0 0 10px;
+        font-size: 22px;
+        letter-spacing: -0.04em;
+      }
+
+      .tile p {
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 14px;
+      }
+
+      .tile ul, .price-card ul {
+        display: grid;
+        gap: 8px;
+        padding: 0;
+        margin: 14px 0 0;
+        list-style: none;
+      }
+
+      .tile li, .price-card li {
+        color: var(--muted);
+        line-height: 1.4;
+        font-size: 13px;
+      }
+
+      .tile li::before {
+        content: "\2022 ";
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      .stack {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .stack-box {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(250, 248, 245, 0.7);
+      }
+
+      .stack-box h3 {
+        margin: 0 0 14px;
+        font-size: 22px;
+        letter-spacing: -0.04em;
+      }
+
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: #504a42;
+        background: rgba(255, 255, 255, 0.4);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .price-card {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(250, 248, 245, 0.8);
+      }
+
+      .price-card.featured {
+        color: var(--milk);
+        border-color: rgba(250, 248, 245, 0.15);
+        background:
+          radial-gradient(circle at 80% 6%, rgba(13, 148, 136, 0.2), transparent 18rem),
+          linear-gradient(145deg, #1a1a1a, #2d1b4e 60%, #064e3b);
+        transform: translateY(-10px);
+        box-shadow: 0 24px 70px rgba(26, 26, 26, 0.2);
+      }
+
+      .price-card h3 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: -0.03em;
+      }
+
+      .price {
+        margin: 16px 0 6px;
+        font-size: 40px;
+        font-weight: 900;
+        letter-spacing: -0.07em;
+      }
+
+      .price span {
+        font-size: 14px;
+        opacity: 0.6;
+      }
+
+      .price-card p, .price-card.featured li, .price-card.featured p {
+        color: currentColor;
+        opacity: 0.7;
+        font-size: 13px;
+      }
+
+      .price-card ul { min-height: 140px; margin: 18px 0 22px; }
+
+      .price-card li::before {
+        content: "\2713 ";
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      .price-card.featured li::before { color: var(--marigold); }
+
+      .ops-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .ops-card {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: rgba(250, 248, 245, 0.75);
+      }
+
+      .ops-card h3 {
+        margin: 0 0 8px;
+        font-size: 20px;
+        letter-spacing: -0.04em;
+      }
+
+      .ops-card p {
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 13px;
+      }
+
+      .ops-card strong { color: var(--ink); }
+
+      .statement {
+        padding: 40px;
+        border-radius: 32px;
+        color: var(--milk);
+        background:
+          radial-gradient(circle at 16% 0%, rgba(13, 148, 136, 0.2), transparent 22rem),
+          radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.15), transparent 30rem),
+          linear-gradient(135deg, #1a1a1a 0%, #2d1b4e 50%, #7c3aed 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .statement h2 { max-width: 700px; }
+
+      .statement p {
+        max-width: 600px;
+        color: rgba(250, 248, 245, 0.7);
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      footer {
+        padding: 28px 0 40px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      @media (max-width: 920px) {
+        .hero, .section-head, .stack { grid-template-columns: 1fr; }
+        .proof-row, .tiles, .pricing, .ops-grid { grid-template-columns: 1fr; }
+        .price-card.featured { transform: none; }
+        .links a:not(.nav-cta) { display: none; }
+        .hero-chart { min-height: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gpu-canvas"></canvas>
+    <div class="content-layer">
+      <div class="topbar">
+        <nav class="wrap nav">
+          <a class="brand" href="#">
+            <span class="mark"></span>
+            <span>Bol.ai</span>
+            <span class="india-flag"><span class="saffron"></span><span class="white-stripe"></span><span class="green-stripe"></span></span>
+          </a>
+          <div class="links">
+            <a href="#why">Why us</a>
+            <a href="#pricing">Pricing</a>
+            <a href="chat.html">Chat</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a class="nav-cta" href="chat.html">Try Free</a>
+          </div>
+        </nav>
+      </div>
+
+      <main>
+        <header class="wrap hero">
+          <div>
+            <span class="label">India's lowest inference pricing</span>
+            <h1>Blazing speed. Simple API. Indian GPUs.</h1>
+            <p class="lead"><strong>Bol.ai hosts top open source AI models in India</strong> with high TPS, low pricing, UPI payments, and OpenAI-compatible APIs.</p>
+            <div class="lowest-price-banner">
+              <span class="price-highlight">&#x20B9;5</span>
+              <div>
+                <strong>per million tokens</strong>
+                <span>Lowest in India. No hidden fees.</span>
+              </div>
+            </div>
+            <div class="actions">
+              <a class="button primary" href="chat.html">Try Free</a>
+              <a class="button" href="#pricing">View pricing</a>
+            </div>
+            <div class="proof-row">
+              <div class="proof"><strong>OpenAI API</strong><span>drop-in migration</span></div>
+              <div class="proof"><strong>High TPS</strong><span>priority lanes</span></div>
+              <div class="proof"><strong>India GPUs</strong><span>private endpoints</span></div>
+            </div>
+          </div>
+
+          <aside class="hero-chart">
+            <h2>Higher TPS. Lower entry price.</h2>
+            <img class="chart-image" src="assets/performance-chart.png" alt="Output throughput comparison" />
+            <p class="fineprint">TPS varies by model, context, output length, concurrency, and cache hits.</p>
+          </aside>
+        </header>
+
+        <section class="wrap" id="why">
+          <div class="section-head">
+            <h2>AI that makes AI fast.</h2>
+            <p>Bol.ai agents autonomously profile, tune, and optimize CUDA kernels on Indian GPUs based on your model architecture and hardware. Every workload gets a custom inference path.</p>
+          </div>
+          <div class="tiles">
+            <article class="tile">
+              <b>01 / Kernel tuning</b>
+              <h3>AI optimizes CUDA for your model</h3>
+              <p>Our agents analyze the model graph, attention pattern, and GPU specs to generate and fuse CUDA kernels that generic serving frameworks cannot match.</p>
+              <ul>
+                <li>Hardware-aware kernel selection</li>
+                <li>Model-specific GEMM and attention fusion</li>
+                <li>Continuous profiling and recompilation</li>
+              </ul>
+            </article>
+            <article class="tile">
+              <b>02 / GPU-native</b>
+              <h3>Optimized per chip, per workload</h3>
+              <p>We tune for the exact GPU architecture — memory bandwidth, SM count, L2 cache — so every token travels the fastest path through silicon hosted in India.</p>
+              <ul>
+                <li>Per-GPU kernel variants</li>
+                <li>FP8 quantization tuned per model</li>
+                <li>Speculative decode with model-aware drafting</li>
+              </ul>
+            </article>
+            <article class="tile">
+              <b>03 / Autonomous</b>
+              <h3>Agents that never stop optimizing</h3>
+              <p>Bol.ai agents benchmark, diagnose bottlenecks, and push kernel updates without human intervention. Your inference gets faster over time.</p>
+              <ul>
+                <li>Real-time latency regression detection</li>
+                <li>Auto-tuning on workload drift</li>
+                <li>Zero-downtime kernel hot-patches</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="wrap" id="stack">
+          <div class="section-head">
+            <h2>From model graph to silicon. We optimize the path.</h2>
+            <p>The API is OpenAI-compatible. Underneath, Bol.ai agents compile custom CUDA kernels, fuse attention layers, and tune KV cache layouts for the exact GPU and model you run.</p>
+          </div>
+          <div class="stack">
+            <div class="stack-box">
+              <h3>Model and runtime lane</h3>
+              <div class="pills">
+                <span class="pill">Qwen3-35B-A3B-FP8</span>
+                <span class="pill">DeepSeek-V3</span>
+                <span class="pill">GLM-4</span>
+                <span class="pill">SGLang</span>
+                <span class="pill">OpenAI-compatible API</span>
+                <span class="pill">Streaming responses</span>
+              </div>
+            </div>
+            <div class="stack-box">
+              <h3>CUDA kernel and cache lane</h3>
+              <div class="pills">
+                <span class="pill">Fused GEMM kernels</span>
+                <span class="pill">FlashAttention-3</span>
+                <span class="pill">FP8 KV cache</span>
+                <span class="pill">Speculative decode</span>
+                <span class="pill">Radix cache</span>
+                <span class="pill">Hardware-aware autotune</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="wrap" id="pricing">
+          <div class="section-head">
+            <h2>Bol Pass: simple weekly access to fast models.</h2>
+            <p>Like a model pass, but built for Indian builders: UPI-friendly, request-window based, and simple enough to understand in one glance.</p>
+          </div>
+          <div class="pricing">
+            <article class="price-card">
+              <h3>Starter Pass</h3>
+              <div class="price">&#x20B9;999<span>/week</span></div>
+              <p>Solo builders, prototypes, and daily agents.</p>
+              <ul>
+                <li>1,000 requests per 5-hour window</li>
+                <li>Access to hosted open source models</li>
+                <li>OpenAI-compatible API</li>
+                <li>UPI, card, and netbanking</li>
+                <li>Community support</li>
+              </ul>
+              <a class="button" href="chat.html">Start building</a>
+            </article>
+            <article class="price-card featured">
+              <h3>Privacy Pass</h3>
+              <div class="price">&#x20B9;2,499<span>/week</span></div>
+              <p>Production agents and sensitive workloads.</p>
+              <ul>
+                <li>2,000 requests per 5-hour window</li>
+                <li>Zero data retention option</li>
+                <li>Priority model access</li>
+                <li>UPI Autopay or invoice</li>
+                <li>Email support</li>
+              </ul>
+              <a class="button primary" href="chat.html">Get started</a>
+            </article>
+            <article class="price-card">
+              <h3>Turbo Pass</h3>
+              <div class="price">&#x20B9;9,999<span>/week</span></div>
+              <p>Teams that need higher speed and long-context agents.</p>
+              <ul>
+                <li>10,000 requests per 5-hour window</li>
+                <li>High-TPS priority lane</li>
+                <li>Long-context presets</li>
+                <li>GST invoice and UPI transfer</li>
+                <li>Benchmark summary</li>
+              </ul>
+              <a class="button" href="#contact">Talk to us</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="wrap">
+          <div class="section-head">
+            <h2>Payment, usage, and dashboard stack.</h2>
+            <p>Razorpay for payments, Chart.js dashboards, and Postgres + ClickHouse for metering.</p>
+          </div>
+          <div class="ops-grid">
+            <article class="ops-card">
+              <h3>Payments</h3>
+              <p><strong>Razorpay</strong> for UPI, cards, subscriptions, payment links, GST invoices, and webhooks.</p>
+            </article>
+            <article class="ops-card">
+              <h3>Dashboard</h3>
+              <p><strong>Chart.js + Inter</strong> for usage graphs, request windows, invoices, API keys, and plan upgrades.</p>
+            </article>
+            <article class="ops-card">
+              <h3>Metering</h3>
+              <p><strong>Postgres + ClickHouse</strong> for tokens, requests, latency, TPS, model usage, and billing reports.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="wrap" id="contact">
+          <div class="statement">
+            <h2>AI that optimizes AI. Running on Indian GPUs.</h2>
+            <p>Tell us the model and hardware. Our agents will benchmark, compile custom CUDA kernels, and deliver the fastest inference path from India.</p>
+            <div class="actions">
+              <a class="button primary" href="mailto:hello@bol.ai">hello@bol.ai</a>
+              <a class="button" href="#pricing">View pricing</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="wrap footer">
+          <span>&copy; 2026 Bol.ai. India-hosted AI inference infrastructure.</span>
+          <span>Fast Indian inference for open-weight models.</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+    (function () {
+      const canvas = document.getElementById("gpu-canvas");
+      const ctx = canvas.getContext("2d");
+      let w, h, dpr;
+
+      function resize() {
+        dpr = window.devicePixelRatio || 1;
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function drawPCB() {
+        ctx.strokeStyle = "rgba(124, 58, 237, 0.03)";
+        ctx.lineWidth = 0.5;
+        const sp = 80;
+        for (let x = 0; x < w; x += sp) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, h);
+          ctx.stroke();
+        }
+        for (let y = 0; y < h; y += sp) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+      }
+
+      function drawGPU(cx, cy, scale, rot) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(rot);
+        ctx.scale(scale, scale);
+
+        const cardW = 200;
+        const cardH = 120;
+        const cardR = 8;
+
+        ctx.beginPath();
+        ctx.roundRect(-cardW / 2, -cardH / 2, cardW, cardH, cardR);
+        ctx.fillStyle = "rgba(30, 30, 30, 0.06)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(30, 30, 30, 0.08)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        const fanX = -55;
+        const fanY = 0;
+        const fanR = 32;
+        ctx.beginPath();
+        ctx.arc(fanX, fanY, fanR, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(30, 30, 30, 0.06)";
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(fanX, fanY, fanR * 0.65, 0, Math.PI * 2);
+        ctx.stroke();
+
+        for (let b = 0; b < 7; b++) {
+          const angle = (b / 7) * Math.PI * 2 + time * 0.3;
+          ctx.beginPath();
+          ctx.moveTo(fanX, fanY);
+          ctx.lineTo(fanX + Math.cos(angle) * fanR * 0.9, fanY + Math.sin(angle) * fanR * 0.9);
+          ctx.strokeStyle = "rgba(30, 30, 30, 0.04)";
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        }
+
+        const dieW = 48;
+        const dieH = 48;
+        const dieX = 40 - dieW / 2;
+        const dieY = 0 - dieH / 2;
+
+        ctx.fillStyle = "rgba(50, 50, 50, 0.08)";
+        ctx.fillRect(dieX - 6, dieY - 6, dieW + 12, dieH + 12);
+
+        ctx.beginPath();
+        ctx.roundRect(dieX, dieY, dieW, dieH, 3);
+        ctx.fillStyle = "rgba(40, 40, 40, 0.12)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(40, 40, 40, 0.15)";
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+
+        const flagH = dieH - 8;
+        const flagW = dieW - 8;
+        const flagX = dieX + 4;
+        const flagY = dieY + 4;
+        const stripeH = flagH / 3;
+
+        ctx.fillStyle = "rgba(255, 153, 51, 0.25)";
+        ctx.fillRect(flagX, flagY, flagW, stripeH);
+
+        ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
+        ctx.fillRect(flagX, flagY + stripeH, flagW, stripeH);
+
+        ctx.fillStyle = "rgba(19, 136, 8, 0.25)";
+        ctx.fillRect(flagX, flagY + stripeH * 2, flagW, stripeH);
+
+        ctx.beginPath();
+        ctx.arc(flagX + flagW / 2, flagY + flagH / 2, 3, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0, 0, 128, 0.3)";
+        ctx.fill();
+
+        const pinsPerSide = 12;
+        const pinSpacing = dieH / (pinsPerSide + 1);
+        ctx.fillStyle = "rgba(245, 158, 11, 0.12)";
+        for (let i = 1; i <= pinsPerSide; i++) {
+          const py = dieY + i * pinSpacing;
+          ctx.fillRect(dieX - 8, py - 0.5, 7, 1);
+          ctx.fillRect(dieX + dieW + 1, py - 0.5, 7, 1);
+        }
+        const pinSpacingH = dieW / (pinsPerSide + 1);
+        for (let i = 1; i <= pinsPerSide; i++) {
+          const px = dieX + i * pinSpacingH;
+          ctx.fillRect(px - 0.5, dieY - 8, 1, 7);
+          ctx.fillRect(px - 0.5, dieY + dieH + 1, 1, 7);
+        }
+
+        const memBlocks = [
+          [60, -42], [60, 30], [80, -42], [80, 30]
+        ];
+        for (const [mx, my] of memBlocks) {
+          ctx.fillStyle = "rgba(30, 30, 30, 0.05)";
+          ctx.fillRect(mx - 8, my - 5, 16, 10);
+          ctx.strokeStyle = "rgba(30, 30, 30, 0.06)";
+          ctx.lineWidth = 0.3;
+          ctx.strokeRect(mx - 8, my - 5, 16, 10);
+        }
+
+        const pwrX = -85;
+        ctx.fillStyle = "rgba(239, 68, 68, 0.08)";
+        ctx.fillRect(pwrX, -5, 6, 4);
+        ctx.fillRect(pwrX, 2, 6, 4);
+        ctx.fillStyle = "rgba(124, 58, 237, 0.06)";
+        ctx.fillRect(pwrX, 9, 6, 4);
+
+        ctx.restore();
+      }
+
+      function drawTrace(x1, y1, x2, y2, progress, opacity) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * 20;
+        const my = (y1 + y2) / 2 + (Math.random() - 0.5) * 20;
+        ctx.quadraticCurveTo(mx, my, x2, y2);
+        ctx.strokeStyle = `rgba(124, 58, 237, ${opacity})`;
+        ctx.lineWidth = 0.4;
+        ctx.stroke();
+      }
+
+      const gpuPositions = [];
+      const traces = [];
+      const pulses = [];
+
+      function init() {
+        resize();
+        gpuPositions.length = 0;
+        traces.length = 0;
+        pulses.length = 0;
+
+        const cols = Math.ceil(w / 500);
+        const rows = Math.ceil(h / 350);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            gpuPositions.push({
+              x: (c + 0.5) * (w / cols) + (Math.random() - 0.5) * 60,
+              y: (r + 0.5) * (h / rows) + (Math.random() - 0.5) * 40,
+              scale: 0.6 + Math.random() * 0.5,
+              rot: (Math.random() - 0.5) * 0.15,
+              speed: 0.1 + Math.random() * 0.2,
+            });
+          }
+        }
+
+        for (let i = 0; i < 20; i++) {
+          if (gpuPositions.length < 2) break;
+          const a = gpuPositions[Math.floor(Math.random() * gpuPositions.length)];
+          const b = gpuPositions[Math.floor(Math.random() * gpuPositions.length)];
+          if (a !== b) {
+            traces.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, opacity: 0.02 + Math.random() * 0.03 });
+            pulses.push({ trace: traces.length - 1, progress: Math.random(), speed: 0.002 + Math.random() * 0.003 });
+          }
+        }
+      }
+
+      let time = 0;
+
+      function draw() {
+        time += 0.016;
+        ctx.clearRect(0, 0, w, h);
+        drawPCB();
+
+        for (const trace of traces) {
+          drawTrace(trace.x1, trace.y1, trace.x2, trace.y2, 0, trace.opacity);
+        }
+
+        for (const gpu of gpuPositions) {
+          drawGPU(gpu.x, gpu.y, gpu.scale, gpu.rot);
+        }
+
+        for (const pulse of pulses) {
+          const t = traces[pulse.trace];
+          if (!t) continue;
+          pulse.progress += pulse.speed;
+          if (pulse.progress > 1) pulse.progress = 0;
+          const u = pulse.progress;
+          const pt = {
+            x: (1 - u) * (1 - u) * t.x1 + 2 * (1 - u) * u * ((t.x1 + t.x2) / 2) + u * u * t.x2,
+            y: (1 - u) * (1 - u) * t.y1 + 2 * (1 - u) * u * ((t.y1 + t.y2) / 2) + u * u * t.y2,
+          };
+
+          const grd = ctx.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, 6);
+          grd.addColorStop(0, "rgba(13, 148, 136, 0.5)");
+          grd.addColorStop(1, "rgba(13, 148, 136, 0)");
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 6, 0, Math.PI * 2);
+          ctx.fillStyle = grd;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(5, 150, 105, 0.7)";
+          ctx.fill();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener("resize", init);
+      init();
+      draw();
+    })();
+    </script>
+  </body>
+</html>

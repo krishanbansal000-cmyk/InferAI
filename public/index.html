@@ -114,11 +114,11 @@
         content: "";
         position: absolute;
         inset: 0;
-        opacity: 0.26;
+        opacity: 0.12;
         background-image:
           linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-        background-size: 76px 76px;
+        background-size: 96px 96px;
         mask-image: linear-gradient(to bottom, black, transparent 85%);
       }
 
@@ -236,7 +236,12 @@
         min-height: 132px;
         padding: 20px;
         background: rgba(17,22,29,0.82);
+        animation: riseIn 0.7s ease both;
       }
+
+      .proof:nth-child(2) { animation-delay: 0.06s; }
+      .proof:nth-child(3) { animation-delay: 0.12s; }
+      .proof:nth-child(4) { animation-delay: 0.18s; }
 
       .proof strong {
         display: block;
@@ -335,6 +340,45 @@
         font-size: 14px;
         font-weight: 600;
         line-height: 1.58;
+      }
+
+      .compare-band {
+        margin-top: -22px;
+        padding-top: 0;
+      }
+
+      .compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid var(--line-light);
+        border-radius: 10px;
+        background: var(--line-light);
+      }
+
+      .compare-item {
+        padding: 20px;
+        background: rgba(255,255,255,0.62);
+      }
+
+      .compare-item strong {
+        display: block;
+        font-size: 15px;
+        letter-spacing: -0.02em;
+        margin-bottom: 7px;
+      }
+
+      .compare-item p {
+        color: #596273;
+        font-size: 13px;
+        line-height: 1.55;
+        font-weight: 650;
+      }
+
+      .compare-item.karya {
+        background: #fff;
+        box-shadow: inset 3px 0 0 var(--teal);
       }
 
       .platform {
@@ -543,6 +587,8 @@
         display: block;
         border-radius: 6px;
         background: linear-gradient(90deg, var(--green), var(--teal));
+        transform-origin: left;
+        animation: growBar 0.9s ease both;
       }
 
       .bar .generic { width: 35%; background: rgba(109,91,208,0.65); }
@@ -571,6 +617,16 @@
         background: var(--text);
       }
 
+      @keyframes riseIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes growBar {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+
       footer {
         color: #68707f;
         font-size: 11px;
@@ -589,7 +645,7 @@
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
         .hero { padding: 58px 0 58px; }
-        .proof-strip, .grid-3, .platform, .models-row, .migration { grid-template-columns: 1fr; }
+        .proof-strip, .grid-3, .platform, .compare-grid, .models-row, .migration { grid-template-columns: 1fr; }
         .route-row { grid-template-columns: 80px 1fr 58px; }
       }
 
@@ -687,6 +743,28 @@
                 <h3>Agents with sustainable margins</h3>
                 <p>RAG, coding, and operations workflows where each extra model call affects margins, response time, and adoption.</p>
               </article>
+            </div>
+          </section>
+
+          <section class="wrap compare-band">
+            <div class="section-head">
+              <div class="section-label">Comparison</div>
+              <h2>Use the right lane for the workload.</h2>
+              <p>Model routers like OpenRouter are useful for model choice and experimentation. Karya is focused on a dedicated India-hosted inference lane where cost, latency, and data residency matter.</p>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-item">
+                <strong>OpenRouter-style model routers</strong>
+                <p>Great for trying many models through one API. Public prices, latency, and throughput vary by model and upstream provider.</p>
+              </div>
+              <div class="compare-item karya">
+                <strong>Karya optimized lane</strong>
+                <p>Open-source models on Indian GPU infrastructure, starting at &#x20B9;5/M tokens, targeting 2-3x faster inference and 2-3x lower cost.</p>
+              </div>
+              <div class="compare-item">
+                <strong>Frontier direct APIs</strong>
+                <p>Best for the hardest, highest-value tasks. Often worth reserving for requests where premium accuracy justifies premium cost.</p>
+              </div>
             </div>
           </section>
         </div>

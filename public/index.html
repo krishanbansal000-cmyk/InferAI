@@ -3,53 +3,59 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Karya.ai | Open-source AI on Indian GPU Infrastructure</title>
+    <title>Karya.ai | Optimized Open-source AI on Indian GPUs</title>
     <meta name="description" content="Karya optimizes open-source AI models for Indian GPU infrastructure, delivering 2-3x faster inference at 2-3x lower cost while keeping enterprise data in India." />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap");
 
       :root {
-        --ink: #14161a;
-        --soft-ink: #2f343d;
-        --muted: #68707f;
-        --surface: #f7f7f2;
-        --panel: #ffffff;
-        --line: rgba(20, 22, 26, 0.1);
+        --ink: #0c0f14;
+        --panel: #11161d;
+        --panel-2: #171d25;
+        --paper: #f5f1e8;
+        --text: #f8fafc;
+        --muted: #9aa4b2;
+        --muted-2: #667085;
+        --line: rgba(248, 250, 252, 0.1);
+        --line-light: rgba(12, 15, 20, 0.1);
         --saffron: #ff9933;
         --green: #138808;
-        --teal: #0d9488;
-        --navy: #000080;
-        --violet: #6d5bd0;
-        --amber: #f59e0b;
+        --teal: #18b6a4;
+        --blue: #000080;
+        --amber: #f5a524;
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
-
       body {
-        min-height: 100vh;
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: var(--ink);
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.72), rgba(247,247,242,0.9)),
-          radial-gradient(circle at 10% 18%, rgba(255,153,51,0.12), transparent 22rem),
-          radial-gradient(circle at 88% 26%, rgba(13,148,136,0.1), transparent 24rem),
-          var(--surface);
+        color: var(--text);
+        background: var(--ink);
         overflow-x: hidden;
       }
 
       a { color: inherit; text-decoration: none; }
       .wrap { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
 
+      .shell {
+        min-height: 100vh;
+        background:
+          linear-gradient(90deg, rgba(255,153,51,0.16), transparent 22%, transparent 78%, rgba(19,136,8,0.16)),
+          radial-gradient(circle at 50% 0%, rgba(24,182,164,0.18), transparent 34rem),
+          linear-gradient(180deg, #0c0f14 0%, #10151c 100%);
+      }
+
       .topbar {
-        position: sticky; top: 0; z-index: 10;
+        position: sticky;
+        top: 0;
+        z-index: 20;
         border-bottom: 1px solid var(--line);
-        background: rgba(247, 247, 242, 0.9);
+        background: rgba(12, 15, 20, 0.82);
         backdrop-filter: blur(18px);
       }
 
       .nav {
-        min-height: 64px;
+        min-height: 66px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -59,10 +65,10 @@
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 11px;
         font-weight: 900;
-        letter-spacing: -0.04em;
         font-size: 19px;
+        letter-spacing: -0.04em;
       }
 
       .brand-mark {
@@ -71,11 +77,11 @@
         border-radius: 8px;
         display: grid;
         place-items: center;
-        background: var(--ink);
-        color: #fff;
+        background: var(--text);
+        color: var(--ink);
       }
 
-      .brand-mark svg { width: 18px; height: 18px; }
+      .brand-mark svg { width: 18px; height: 18px; stroke: currentColor; }
 
       .nav-links {
         display: flex;
@@ -86,7 +92,7 @@
         font-weight: 800;
       }
 
-      .nav-links a:hover { color: var(--ink); }
+      .nav-links a:hover { color: var(--text); }
 
       .nav-cta {
         min-height: 38px;
@@ -94,28 +100,43 @@
         border-radius: 999px;
         display: inline-flex;
         align-items: center;
-        background: var(--ink);
-        color: #fff !important;
-        box-shadow: 0 10px 24px rgba(20, 22, 26, 0.14);
+        color: var(--ink) !important;
+        background: var(--text);
       }
-
-      main { position: relative; }
 
       .hero {
         position: relative;
-        padding: 84px 0 58px;
-        text-align: center;
+        padding: 92px 0 82px;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.26;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+        background-size: 76px 76px;
+        mask-image: linear-gradient(to bottom, black, transparent 85%);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 980px;
       }
 
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        min-height: 30px;
+        gap: 10px;
+        min-height: 32px;
         padding: 0 14px;
-        border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255,255,255,0.66);
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.06);
         color: var(--teal);
         font-size: 11px;
         font-weight: 900;
@@ -123,32 +144,44 @@
         text-transform: uppercase;
       }
 
-      .eyebrow::before {
+      .mini-flag {
+        width: 26px;
+        height: 18px;
+        border-radius: 3px;
+        border: 1px solid rgba(255,255,255,0.18);
+        overflow: hidden;
+        position: relative;
+        flex: 0 0 auto;
+        background: linear-gradient(to bottom, var(--saffron) 0 33.333%, #fff 33.333% 66.666%, var(--green) 66.666% 100%);
+      }
+
+      .mini-flag::after {
         content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
         width: 7px;
         height: 7px;
+        border: 1px solid var(--blue);
         border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 0 5px rgba(19, 136, 8, 0.09);
+        transform: translate(-50%, -50%);
       }
 
       h1 {
+        margin-top: 24px;
         max-width: 960px;
-        margin: 18px auto 0;
-        font-size: clamp(40px, 6vw, 78px);
-        line-height: 0.98;
-        letter-spacing: -0.06em;
+        font-size: clamp(46px, 7.2vw, 96px);
+        line-height: 0.94;
+        letter-spacing: -0.07em;
         font-weight: 900;
       }
 
-      .highlight {
-        color: var(--teal);
-      }
+      h1 span { color: var(--teal); }
 
       .hero-copy {
-        max-width: 770px;
-        margin: 18px auto 0;
-        color: var(--soft-ink);
+        max-width: 760px;
+        margin-top: 22px;
+        color: rgba(248,250,252,0.78);
         font-size: clamp(17px, 2vw, 21px);
         line-height: 1.55;
         font-weight: 600;
@@ -157,9 +190,8 @@
       .hero-actions {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 28px;
+        gap: 12px;
+        margin-top: 30px;
       }
 
       .btn {
@@ -170,102 +202,70 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255,255,255,0.72);
-        color: var(--ink);
+        background: rgba(255,255,255,0.06);
+        color: var(--text);
         font-size: 13px;
         font-weight: 900;
-        transition: transform 0.16s ease, box-shadow 0.16s ease;
+        transition: transform 0.16s ease, background 0.16s ease;
       }
 
-      .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 12px 30px rgba(20, 22, 26, 0.09);
-      }
+      .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.1); }
 
       .btn-primary {
-        color: #fff;
-        background: var(--ink);
-        border-color: var(--ink);
+        color: var(--ink);
+        background: var(--text);
+        border-color: var(--text);
       }
 
-      .hero-flag {
-        width: min(760px, 92vw);
-        aspect-ratio: 3 / 2;
-        margin: 42px auto 0;
-        border-radius: 12px;
-        overflow: hidden;
+      .btn-primary:hover { background: #fff; }
+
+      .proof-strip {
         position: relative;
-        border: 1px solid rgba(20, 22, 26, 0.12);
-        box-shadow: 0 38px 110px rgba(20, 22, 26, 0.18);
-        background:
-          linear-gradient(
-            to bottom,
-            var(--saffron) 0 33.333%,
-            #fff 33.333% 66.666%,
-            var(--green) 66.666% 100%
-          );
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--line);
+        margin-top: 56px;
       }
 
-      .hero-flag::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 19%;
-        aspect-ratio: 1;
-        border: clamp(2px, 0.45vw, 4px) solid var(--navy);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        background:
-          repeating-conic-gradient(
-            from 0deg,
-            var(--navy) 0deg 3deg,
-            transparent 3deg 15deg
-          );
-        box-shadow: inset 0 0 0 clamp(2px, 0.45vw, 4px) #fff;
+      .proof {
+        min-height: 132px;
+        padding: 20px;
+        background: rgba(17,22,29,0.82);
       }
 
-      .hero-flag::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 2.8%;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background: var(--navy);
-        transform: translate(-50%, -50%);
-      }
-
-      .price-line {
-        margin-top: 20px;
-        display: inline-flex;
-        align-items: baseline;
-        gap: 8px;
-        padding: 9px 18px;
-        border: 1px solid rgba(13, 148, 136, 0.18);
-        border-radius: 999px;
-        background: rgba(13, 148, 136, 0.07);
-      }
-
-      .price-line strong {
-        color: var(--teal);
-        font-size: 30px;
+      .proof strong {
+        display: block;
+        color: var(--amber);
+        font-size: 38px;
         letter-spacing: -0.06em;
+        line-height: 1;
       }
 
-      .price-line span {
-        color: var(--muted);
-        font-size: 12px;
+      .proof span {
+        display: block;
+        margin-top: 8px;
+        color: rgba(248,250,252,0.56);
+        font-size: 11px;
         font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
-      section { padding: 68px 0; }
-      .section-divider { border-top: 1px solid var(--line); }
+      .light {
+        color: var(--ink);
+        background: var(--paper);
+      }
+
+      section { padding: 76px 0; }
 
       .section-head {
-        max-width: 760px;
-        margin-bottom: 28px;
+        max-width: 780px;
+        margin-bottom: 30px;
       }
 
       .section-head.center {
@@ -275,7 +275,7 @@
       }
 
       .section-label {
-        color: var(--muted);
+        color: var(--muted-2);
         font-size: 10px;
         font-weight: 900;
         letter-spacing: 0.13em;
@@ -284,105 +284,113 @@
       }
 
       h2 {
-        font-size: clamp(28px, 4.2vw, 48px);
-        line-height: 1.04;
-        letter-spacing: -0.05em;
+        font-size: clamp(30px, 4.4vw, 52px);
+        line-height: 1.02;
+        letter-spacing: -0.055em;
       }
 
       .section-head p {
-        margin-top: 10px;
-        color: var(--muted);
+        margin-top: 12px;
+        color: #596273;
         font-size: 15px;
         line-height: 1.65;
         font-weight: 600;
       }
 
-      .pillars {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: var(--line);
-      }
-
-      .pillar {
-        min-height: 190px;
-        padding: 24px;
-        background: rgba(255,255,255,0.72);
-      }
-
-      .pillar strong {
-        display: block;
-        color: var(--teal);
-        font-size: 34px;
-        letter-spacing: -0.06em;
-        margin-bottom: 10px;
-      }
-
-      .pillar h3 {
-        font-size: 17px;
-        letter-spacing: -0.03em;
-        margin-bottom: 8px;
-      }
-
-      .pillar p {
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.55;
-        font-weight: 600;
-      }
-
-      .workloads {
+      .grid-3 {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        gap: 14px;
       }
 
-      .workload {
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        padding: 22px;
-        background: rgba(255,255,255,0.72);
+      .card {
+        min-height: 230px;
+        padding: 24px;
+        border-radius: 8px;
+        border: 1px solid var(--line-light);
+        background: rgba(255,255,255,0.58);
       }
 
-      .workload .tag {
+      .card .tag {
         display: inline-flex;
-        margin-bottom: 12px;
-        color: var(--teal);
-        background: rgba(13,148,136,0.08);
+        padding: 4px 10px;
         border-radius: 999px;
-        padding: 4px 9px;
+        color: var(--teal);
+        background: rgba(24,182,164,0.1);
         font-size: 10px;
         font-weight: 900;
-        letter-spacing: 0.07em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
+        margin-bottom: 14px;
       }
 
-      .workload h3 {
-        font-size: 18px;
-        letter-spacing: -0.03em;
-        margin-bottom: 7px;
+      .card h3 {
+        font-size: 20px;
+        letter-spacing: -0.035em;
+        margin-bottom: 9px;
       }
 
-      .workload p {
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.55;
+      .card p {
+        color: #596273;
+        font-size: 14px;
         font-weight: 600;
+        line-height: 1.58;
+      }
+
+      .platform {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 30px;
+        align-items: start;
+      }
+
+      .platform-panel {
+        border-radius: 10px;
+        border: 1px solid var(--line-light);
+        background: #fff;
+        padding: 26px;
+      }
+
+      .platform-panel h3 {
+        font-size: 28px;
+        letter-spacing: -0.045em;
+        margin-bottom: 14px;
+      }
+
+      .platform-list {
+        display: grid;
+        gap: 12px;
+        list-style: none;
+      }
+
+      .platform-list li {
+        display: flex;
+        gap: 12px;
+        color: #596273;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .platform-list li::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--teal);
+        margin-top: 7px;
+        flex: 0 0 auto;
       }
 
       .models-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        gap: 14px;
       }
 
       .model-card {
-        padding: 22px;
-        border-radius: 10px;
+        padding: 24px;
         border: 1px solid var(--line);
+        border-radius: 8px;
         background: var(--panel);
       }
 
@@ -391,51 +399,52 @@
         align-items: center;
         justify-content: space-between;
         gap: 14px;
-        margin-bottom: 14px;
+        margin-bottom: 18px;
       }
 
       .model-icon {
         width: 38px;
         height: 38px;
-        border-radius: 9px;
+        border-radius: 8px;
         display: grid;
         place-items: center;
-        color: #fff;
-        background: var(--ink);
+        color: var(--ink);
+        background: var(--text);
         font-weight: 900;
       }
 
       .status {
-        color: var(--green);
-        background: rgba(19,136,8,0.08);
+        color: #8df0b0;
+        background: rgba(19,136,8,0.16);
         border-radius: 999px;
         padding: 4px 9px;
         font-size: 10px;
         font-weight: 900;
-        text-transform: uppercase;
         letter-spacing: 0.07em;
+        text-transform: uppercase;
       }
 
       .model-card h3 {
-        font-size: 18px;
-        letter-spacing: -0.03em;
-        margin-bottom: 6px;
+        font-size: 20px;
+        letter-spacing: -0.035em;
+        margin-bottom: 8px;
       }
 
       .model-card p {
-        min-height: 42px;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.5;
+        min-height: 66px;
+        color: rgba(248,250,252,0.6);
+        font-size: 14px;
+        line-height: 1.55;
         font-weight: 600;
       }
 
       .model-price {
         display: inline-flex;
-        margin-top: 16px;
+        margin-top: 18px;
         padding: 6px 11px;
         border-radius: 999px;
         border: 1px solid var(--line);
+        color: var(--text);
         font-family: "JetBrains Mono", monospace;
         font-size: 12px;
         font-weight: 900;
@@ -445,18 +454,16 @@
 
       .dark-section {
         background: var(--ink);
-        color: #fff;
-        padding: 72px 0;
+        color: var(--text);
+        padding: 76px 0;
       }
 
       .dark-section .section-label,
-      .dark-section p {
-        color: rgba(255,255,255,0.58);
-      }
+      .dark-section p { color: rgba(248,250,252,0.58); }
 
       .migration {
         display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
         gap: 36px;
         align-items: start;
       }
@@ -469,11 +476,11 @@
 
       .code-tab {
         padding: 9px 16px;
-        border: 1px solid rgba(255,255,255,0.12);
+        border: 1px solid var(--line);
         border-bottom: none;
         border-radius: 8px 8px 0 0;
         background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.48);
+        color: rgba(248,250,252,0.5);
         font: inherit;
         font-size: 11px;
         font-weight: 900;
@@ -481,17 +488,17 @@
       }
 
       .code-tab.active {
-        color: #fff;
+        color: var(--text);
         background: rgba(255,255,255,0.09);
       }
 
       .code-block {
-        border: 1px solid rgba(255,255,255,0.12);
+        border: 1px solid var(--line);
         border-radius: 0 10px 10px 10px;
         background: rgba(255,255,255,0.05);
         padding: 20px;
         overflow-x: auto;
-        color: rgba(255,255,255,0.76);
+        color: rgba(248,250,252,0.78);
         font-family: "JetBrains Mono", monospace;
         font-size: 12px;
         line-height: 1.72;
@@ -502,285 +509,227 @@
       .code-block .fn { color: #60a5fa; }
       .code-block .num { color: var(--amber); }
 
-      .throughput {
+      .route-panel {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        padding: 24px;
+      }
+
+      .route-row {
         display: grid;
-        gap: 18px;
-        padding-top: 8px;
-      }
-
-      .metric strong {
-        display: block;
-        color: var(--amber);
-        font-size: 54px;
-        letter-spacing: -0.06em;
-        line-height: 0.95;
-      }
-
-      .metric span {
-        display: block;
-        margin-top: 8px;
-        color: rgba(255,255,255,0.48);
-        font-size: 11px;
-        font-weight: 900;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .barset {
-        display: grid;
-        gap: 10px;
-        margin-top: 12px;
-      }
-
-      .bar-row {
-        display: grid;
-        grid-template-columns: 92px 1fr 70px;
-        gap: 10px;
+        grid-template-columns: 110px 1fr auto;
+        gap: 12px;
         align-items: center;
-        color: rgba(255,255,255,0.56);
-        font-family: "JetBrains Mono", monospace;
-        font-size: 11px;
-        font-weight: 900;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+        color: rgba(248,250,252,0.62);
+        font-size: 12px;
+        font-weight: 800;
       }
 
-      .bar-track {
-        height: 28px;
+      .route-row:last-child { border-bottom: none; }
+      .route-row strong { color: var(--text); }
+
+      .bar {
+        height: 30px;
         border-radius: 6px;
-        background: rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.1);
         overflow: hidden;
       }
 
-      .bar-fill {
+      .bar span {
         height: 100%;
+        display: block;
         border-radius: 6px;
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-        color: #fff;
         background: linear-gradient(90deg, var(--green), var(--teal));
       }
 
-      .bar-fill.generic {
-        width: 35%;
-        background: rgba(109,91,208,0.58);
-      }
-
-      .bar-fill.karya { width: 100%; }
-
-      .final {
-        padding: 58px 0 72px;
-      }
+      .bar .generic { width: 35%; background: rgba(109,91,208,0.65); }
+      .bar .karya { width: 100%; }
 
       .statement {
-        color: #fff;
         padding: 42px;
-        border-radius: 12px;
-        background:
-          linear-gradient(135deg, rgba(20,22,26,0.96), rgba(13,148,136,0.88)),
-          linear-gradient(90deg, var(--saffron), #fff, var(--green));
+        border-radius: 10px;
+        background: linear-gradient(135deg, #11161d, #0e766f 62%, #0d9488);
+        color: var(--text);
       }
 
-      .statement h2 {
-        max-width: 690px;
-      }
-
+      .statement h2 { max-width: 740px; }
       .statement p {
-        max-width: 640px;
+        max-width: 680px;
         margin-top: 10px;
-        color: rgba(255,255,255,0.68);
-        line-height: 1.6;
+        color: rgba(248,250,252,0.7);
         font-size: 15px;
         font-weight: 600;
+        line-height: 1.6;
       }
 
       .statement .btn {
         margin-top: 22px;
-        background: #fff;
         color: var(--ink);
+        background: var(--text);
       }
 
       footer {
-        color: var(--muted);
+        color: #68707f;
         font-size: 11px;
         padding: 20px 0 32px;
+        background: var(--paper);
       }
 
       .footer {
-        border-top: 1px solid var(--line);
+        border-top: 1px solid var(--line-light);
         padding-top: 16px;
         display: flex;
         justify-content: space-between;
         gap: 18px;
       }
 
-      .fade-up {
-        opacity: 1;
-        transform: none;
-      }
-
-      .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
-        .hero { padding-top: 58px; }
-        .pillars, .workloads, .models-row { grid-template-columns: 1fr; }
-        .migration { grid-template-columns: 1fr; }
-        .bar-row { grid-template-columns: 78px 1fr 60px; }
+        .hero { padding: 58px 0 58px; }
+        .proof-strip, .grid-3, .platform, .models-row, .migration { grid-template-columns: 1fr; }
+        .route-row { grid-template-columns: 80px 1fr 58px; }
       }
 
       @media (max-width: 560px) {
         .wrap { width: min(100% - 28px, 1160px); }
-        .hero-copy { font-size: 16px; }
         .hero-actions { flex-direction: column; align-items: stretch; }
         .btn { width: 100%; }
-        .hero-flag { margin-top: 30px; }
-        .statement { padding: 28px; }
+        .hero-copy { font-size: 16px; }
+        .proof { min-height: 112px; }
+        .card, .platform-panel, .model-card, .route-panel, .statement { padding: 22px; }
+        .route-row { grid-template-columns: 1fr; }
         .footer { flex-direction: column; }
       }
     </style>
   </head>
   <body>
-    <div class="topbar">
-      <nav class="wrap nav">
-        <a class="brand" href="/">
-          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/><rect x="9" y="9" width="6" height="6" rx="1" fill="white" stroke="none"/></svg></span>
-          <span>Karya.ai</span>
-        </a>
-        <div class="nav-links">
-          <a href="#infrastructure">Infrastructure</a>
-          <a href="#models">Models</a>
-          <a href="#migration">Migration</a>
-          <a href="/dashboard">Dashboard</a>
-          <a class="nav-cta" href="/chat">Try chat</a>
-        </div>
-      </nav>
-    </div>
-
-    <main>
-      <header class="hero">
-        <div class="wrap fade-up">
-          <div class="eyebrow">India-hosted inference infrastructure</div>
-          <h1>Open-source AI models for <span class="highlight">Indian GPU infrastructure.</span></h1>
-          <p class="hero-copy">Karya optimizes open-source AI models for Indian GPU infrastructure, delivering 2-3x faster inference at 2-3x lower cost while keeping enterprise data in India.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="/chat">Try Karya</a>
-            <a class="btn" href="mailto:hello@karya.ai">Talk to us</a>
+    <div class="shell">
+      <div class="topbar">
+        <nav class="wrap nav">
+          <a class="brand" href="/">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" stroke="none"/></svg></span>
+            <span>Karya.ai</span>
+          </a>
+          <div class="nav-links">
+            <a href="#platform">Platform</a>
+            <a href="#models">Models</a>
+            <a href="#migration">Migration</a>
+            <a href="/dashboard">Dashboard</a>
+            <a class="nav-cta" href="/chat">Try chat</a>
           </div>
-          <div class="hero-flag" role="img" aria-label="Indian national flag"></div>
-          <div class="price-line"><strong>&#x20B9;5</strong><span>per million tokens to start</span></div>
-        </div>
-      </header>
+        </nav>
+      </div>
 
-      <div class="section-divider"></div>
-
-      <section class="wrap" id="infrastructure">
-        <div class="section-head center fade-up">
-          <div class="section-label">What Indian enterprises care about</div>
-          <h2>Cost, speed, data control, and reliability in production.</h2>
-          <p>The model only matters if the workflow works. Karya is built for teams that want strong task performance without high inference bills or offshore data movement.</p>
-        </div>
-        <div class="pillars">
-          <article class="pillar fade-up">
-            <strong>2-3x</strong>
-            <h3>Faster inference</h3>
-            <p>Hardware-aware serving, batching, cache, and kernel choices tuned for the GPUs running your workload.</p>
-          </article>
-          <article class="pillar fade-up">
-            <strong>2-3x</strong>
-            <h3>Lower cost</h3>
-            <p>Efficient open-source models handle everyday enterprise traffic without frontier-model pricing on every request.</p>
-          </article>
-          <article class="pillar fade-up">
-            <strong>India</strong>
-            <h3>Data residency</h3>
-            <p>Inference runs on Indian infrastructure so sensitive enterprise data can stay inside India.</p>
-          </article>
-          <article class="pillar fade-up">
-            <strong>API</strong>
-            <h3>Drop-in migration</h3>
-            <p>OpenAI-compatible endpoints let teams route workloads to Karya without rewriting their application stack.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="wrap">
-        <div class="section-head fade-up">
-          <div class="section-label">Use cases</div>
-          <h2>Use open-source models where they already win.</h2>
-          <p>For many enterprise workflows, smaller strong models are not a compromise. They are the practical choice when latency, cost, and control matter.</p>
-        </div>
-        <div class="workloads">
-          <article class="workload fade-up">
-            <span class="tag">Support</span>
-            <h3>Customer and internal assistants</h3>
-            <p>Fast responses for support chat, policy questions, HR queries, and internal knowledge bases.</p>
-          </article>
-          <article class="workload fade-up">
-            <span class="tag">Documents</span>
-            <h3>Extraction and summarization</h3>
-            <p>Invoices, contracts, call notes, reports, and operational documents processed at lower per-token cost.</p>
-          </article>
-          <article class="workload fade-up">
-            <span class="tag">Agents</span>
-            <h3>RAG, coding, and ops workflows</h3>
-            <p>High-volume agent loops where inference cost and latency decide whether the product can scale.</p>
-          </article>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <section class="wrap" id="models">
-        <div class="section-head center fade-up">
-          <div class="section-label">Models</div>
-          <h2>Right-sized open-source models, optimized for the hardware.</h2>
-          <p>Start with efficient models for routine work, then reserve heavier models for the small share of requests that truly need them.</p>
-        </div>
-        <div class="models-row">
-          <article class="model-card fade-up">
-            <div class="model-top">
-              <div class="model-icon">Q</div>
-              <span class="status">Available</span>
+      <main>
+        <header class="hero">
+          <div class="wrap">
+            <div class="hero-inner">
+              <div class="eyebrow"><span class="mini-flag" aria-hidden="true"></span> India-hosted GPU inference</div>
+              <h1>Open-source AI, optimized for <span>Indian GPUs.</span></h1>
+              <p class="hero-copy">Karya optimizes open-source AI models for Indian GPU infrastructure, delivering 2-3x faster inference at 2-3x lower cost while keeping enterprise data in India.</p>
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="/chat">Try Karya</a>
+                <a class="btn" href="mailto:hello@karya.ai">Talk to us</a>
+              </div>
             </div>
-            <h3>Qwen3-35B-A3B</h3>
-            <p>Strong default for enterprise agents, summarization, extraction, and RAG workloads.</p>
-            <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
-          </article>
-          <article class="model-card fade-up">
-            <div class="model-top">
-              <div class="model-icon">D</div>
-              <span class="status">Available</span>
-            </div>
-            <h3>DeepSeek-V4-Pro</h3>
-            <p>Heavier reasoning route for tasks where quality matters more than the lowest price.</p>
-            <div class="model-price">&#x20B9;<span class="val">12</span> / M tokens</div>
-          </article>
-          <article class="model-card fade-up">
-            <div class="model-top">
-              <div class="model-icon">G</div>
-              <span class="status">Available</span>
-            </div>
-            <h3>GLM-5.1</h3>
-            <p>Low-cost general purpose option for high-volume operational workloads.</p>
-            <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
-          </article>
-        </div>
-      </section>
 
-      <section class="dark-section" id="migration">
-        <div class="wrap migration">
-          <div class="fade-up">
-            <div class="section-label">Migration</div>
-            <h2>Keep your OpenAI workflow. Change the inference economics.</h2>
-            <p>Switch the base URL, route cost-sensitive traffic to Karya, and keep frontier models only for the requests where they are worth the premium.</p>
-            <div class="code-tabs">
-              <button class="code-tab active" data-lang="python">Python</button>
-              <button class="code-tab" data-lang="js">Node.js</button>
+            <div class="proof-strip" aria-label="Karya performance and residency highlights">
+              <div class="proof"><strong>2-3x</strong><span>faster inference</span></div>
+              <div class="proof"><strong>2-3x</strong><span>lower cost</span></div>
+              <div class="proof"><strong>India</strong><span>data residency</span></div>
+              <div class="proof"><strong>&#x20B9;5</strong><span>per M tokens to start</span></div>
             </div>
-            <div class="code-block" id="codePython">
+          </div>
+        </header>
+
+        <div class="light">
+          <section class="wrap" id="platform">
+            <div class="platform">
+              <div class="section-head">
+                <div class="section-label">Platform</div>
+                <h2>Inference infrastructure, not another generic API wrapper.</h2>
+                <p>Indian enterprises need practical model quality, predictable unit economics, and clear data control. Karya focuses the stack on those production constraints.</p>
+              </div>
+              <div class="platform-panel">
+                <h3>What changes when models are tuned for the hardware?</h3>
+                <ul class="platform-list">
+                  <li>Lower per-token cost for high-volume support, RAG, document, and agent workloads.</li>
+                  <li>Lower latency through hardware-aware batching, cache policy, kernels, and routing.</li>
+                  <li>India-hosted inference for enterprises that do not want sensitive prompts leaving the country.</li>
+                  <li>OpenAI-compatible migration so teams can test without rewriting their application.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="wrap">
+            <div class="section-head">
+              <div class="section-label">Where it fits</div>
+              <h2>Use open-source models where they already win.</h2>
+              <p>Frontier models are useful, but most enterprise workloads need reliable task completion at scale. That is where optimized open-source inference pays off.</p>
+            </div>
+            <div class="grid-3">
+              <article class="card">
+                <span class="tag">Assistants</span>
+                <h3>Customer and internal support</h3>
+                <p>Policy answers, HR helpdesks, account support, and internal knowledge assistants with lower latency and predictable spend.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Documents</span>
+                <h3>Extraction and summarization</h3>
+                <p>Invoices, contracts, meeting notes, reports, and operational documents processed without premium-model pricing on every token.</p>
+              </article>
+              <article class="card">
+                <span class="tag">Agents</span>
+                <h3>RAG, coding, and ops workflows</h3>
+                <p>High-volume agent loops where each extra model call affects product margins, response time, and adoption.</p>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <section class="wrap" id="models">
+          <div class="section-head center">
+            <div class="section-label">Models</div>
+            <h2>Right-sized models, optimized for Indian GPU infrastructure.</h2>
+            <p>Start with efficient open-source models for the majority of traffic. Route only the hardest requests to heavier models.</p>
+          </div>
+          <div class="models-row">
+            <article class="model-card">
+              <div class="model-top"><div class="model-icon">Q</div><span class="status">Available</span></div>
+              <h3>Qwen3-35B-A3B</h3>
+              <p>Strong default for enterprise agents, summarization, extraction, and RAG workloads.</p>
+              <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
+            </article>
+            <article class="model-card">
+              <div class="model-top"><div class="model-icon">D</div><span class="status">Available</span></div>
+              <h3>DeepSeek-V4-Pro</h3>
+              <p>Heavier reasoning route for workflows where quality matters more than the lowest price.</p>
+              <div class="model-price">&#x20B9;<span class="val">12</span> / M tokens</div>
+            </article>
+            <article class="model-card">
+              <div class="model-top"><div class="model-icon">G</div><span class="status">Available</span></div>
+              <h3>GLM-5.1</h3>
+              <p>Low-cost general purpose option for high-volume operational tasks.</p>
+              <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dark-section" id="migration">
+          <div class="wrap migration">
+            <div>
+              <div class="section-label">Migration</div>
+              <h2>Change the inference layer without changing your product.</h2>
+              <p>Keep your SDK flow. Switch the base URL, route cost-sensitive traffic to Karya, and keep frontier models only where they justify the premium.</p>
+              <div class="code-tabs">
+                <button class="code-tab active" data-lang="python">Python</button>
+                <button class="code-tab" data-lang="js">Node.js</button>
+              </div>
+              <div class="code-block" id="codePython">
 <span class="kw">from</span> openai <span class="kw">import</span> OpenAI
 
 client = OpenAI(
@@ -794,7 +743,7 @@ resp = client.chat.completions.<span class="fn">create</span>(
                <span class="str">"content"</span>: <span class="str">"Summarize this report"</span>}]
 )
 <span class="fn">print</span>(resp.choices[<span class="num">0</span>].message.content)</div>
-            <div class="code-block" id="codeJs" style="display:none">
+              <div class="code-block" id="codeJs" style="display:none">
 <span class="kw">import</span> OpenAI <span class="kw">from</span> <span class="str">"openai"</span>;
 
 <span class="kw">const</span> client = <span class="kw">new</span> <span class="fn">OpenAI</span>({
@@ -807,41 +756,28 @@ resp = client.chat.completions.<span class="fn">create</span>(
   messages: [{ role: <span class="str">"user"</span>, content: <span class="str">"Summarize this report"</span> }]
 });
 console.<span class="fn">log</span>(resp.choices[<span class="num">0</span>].message.content);</div>
+            </div>
+
+            <aside class="route-panel">
+              <div class="section-label">Serving benchmark</div>
+              <div class="route-row"><strong>Karya.ai</strong><div class="bar"><span class="karya"></span></div><strong>408 tok/s</strong></div>
+              <div class="route-row"><strong>Generic</strong><div class="bar"><span class="generic"></span></div><strong>145 tok/s</strong></div>
+              <div class="route-row"><strong>Target</strong><div>Optimized serving for 2-3x faster inference and 2-3x lower cost.</div><strong>India</strong></div>
+            </aside>
           </div>
+        </section>
 
-          <aside class="throughput fade-up">
-            <div class="metric">
-              <strong>2-3x</strong>
-              <span>faster inference target</span>
+        <section class="light">
+          <div class="wrap">
+            <div class="statement">
+              <h2>Open-source AI inference, tuned for Indian infrastructure.</h2>
+              <p>Build production AI with a stack designed around Indian GPU infrastructure, enterprise data residency, and sustainable inference economics.</p>
+              <a class="btn" href="mailto:hello@karya.ai">hello@karya.ai</a>
             </div>
-            <div class="metric">
-              <strong>2-3x</strong>
-              <span>lower inference cost target</span>
-            </div>
-            <div class="barset">
-              <div class="bar-row">
-                <span>Karya.ai</span>
-                <div class="bar-track"><div class="bar-fill karya">408 tok/s</div></div>
-                <span>100%</span>
-              </div>
-              <div class="bar-row">
-                <span>Generic</span>
-                <div class="bar-track"><div class="bar-fill generic"></div></div>
-                <span>145 tok/s</span>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="wrap final">
-        <div class="statement fade-up">
-          <h2>Open-source AI inference, tuned for Indian infrastructure.</h2>
-          <p>Build with models that are fast enough, affordable enough, and controlled enough for production AI inside Indian companies.</p>
-          <a class="btn" href="mailto:hello@karya.ai">hello@karya.ai</a>
-        </div>
-      </section>
-    </main>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <footer>
       <div class="wrap footer">
@@ -852,18 +788,6 @@ console.<span class="fn">log</span>(resp.choices[<span class="num">0</span>].mes
 
     <script>
     (function () {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
-
-      document.querySelectorAll(".fade-up").forEach(function (el) {
-        observer.observe(el);
-      });
-
       document.querySelectorAll(".code-tab").forEach(function (tab) {
         tab.addEventListener("click", function () {
           document.querySelectorAll(".code-tab").forEach(function (t) { t.classList.remove("active"); });

@@ -517,46 +517,49 @@
         align-items: start;
       }
 
-      .code-tabs {
-        display: flex;
-        gap: 0;
-        margin-top: 24px;
+      .integration-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 26px;
       }
 
-      .code-tab {
-        padding: 9px 16px;
+      .integration-step {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 16px;
         border: 1px solid var(--line);
-        border-bottom: none;
-        border-radius: 9px 9px 0 0;
-        background: rgba(255,255,255,0.05);
-        color: rgba(248,250,252,0.5);
-        font: inherit;
-        font-size: 11px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.045);
+      }
+
+      .integration-step span {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        color: var(--ink);
+        background: var(--text);
         font-weight: 900;
-        cursor: pointer;
-      }
-
-      .code-tab.active {
-        color: var(--text);
-        background: rgba(255,255,255,0.09);
-      }
-
-      .code-block {
-        border: 1px solid var(--line);
-        border-radius: 0 12px 12px 12px;
-        background: rgba(255,255,255,0.05);
-        padding: 20px;
-        overflow-x: auto;
-        color: rgba(248,250,252,0.78);
         font-family: "JetBrains Mono", monospace;
-        font-size: 12px;
-        line-height: 1.72;
+        font-size: 13px;
       }
 
-      .code-block .kw { color: #c084fc; }
-      .code-block .str { color: #34d399; }
-      .code-block .fn { color: #60a5fa; }
-      .code-block .num { color: var(--amber); }
+      .integration-step strong {
+        display: block;
+        color: var(--text);
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .integration-step p {
+        color: rgba(248,250,252,0.6);
+        font-size: 13px;
+        line-height: 1.5;
+        font-weight: 650;
+      }
 
       .route-panel {
         border: 1px solid var(--line);
@@ -638,15 +641,15 @@
       .gpu-ticker {
         position: relative;
         overflow: hidden;
-        padding: 24px 0;
+        padding: 28px 0 30px;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
-        background: rgba(8, 11, 16, 0.72);
+        background: rgba(8, 11, 16, 0.78);
       }
 
       .gpu-ticker-label {
         text-align: center;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         color: var(--muted);
         font-size: 10px;
         font-weight: 900;
@@ -655,51 +658,42 @@
       }
 
       .gpu-ticker-track {
-        display: flex;
-        width: max-content;
-        animation: gpuScroll 24s linear infinite;
-      }
-
-      .gpu-ticker-track:hover {
-        animation-play-state: paused;
-      }
-
-      @keyframes gpuScroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
+        width: min(860px, calc(100% - 32px));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
       }
 
       .gpu-chip {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         justify-content: center;
-        padding: 14px 26px;
-        margin: 0 8px;
-        min-width: 176px;
-        min-height: 64px;
+        padding: 18px 24px;
+        min-height: 76px;
         border-radius: 12px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.055);
-        white-space: nowrap;
-        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: #f8fafc;
+        box-shadow: 0 16px 45px rgba(0,0,0,0.18);
         transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
       }
 
       .gpu-chip:hover {
-        border-color: rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.35);
+        background: #ffffff;
         transform: translateY(-1px);
       }
 
       .gpu-chip-logo {
-        width: 118px;
-        height: 34px;
-        flex-shrink: 0;
+        display: block;
+        max-width: 148px;
+        max-height: 42px;
+        object-fit: contain;
       }
 
-      .gpu-chip.nvidia svg { color: #76b900; }
-      .gpu-chip.aws svg { color: #ff9900; }
-      .gpu-chip.amd svg { color: #ed1c24; }
+      .gpu-chip.nvidia { border-color: rgba(118,185,0,0.28); }
+      .gpu-chip.aws { border-color: rgba(255,153,0,0.26); }
+      .gpu-chip.amd { border-color: rgba(237,28,36,0.22); }
 
       footer {
         color: #68707f;
@@ -719,7 +713,7 @@
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
         .hero { padding: 58px 0 58px; }
-        .proof-strip, .grid-3, .platform, .compare-grid, .models-row, .migration { grid-template-columns: 1fr; }
+        .proof-strip, .grid-3, .platform, .compare-grid, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
         .route-row { grid-template-columns: 80px 1fr 58px; }
       }
 
@@ -780,85 +774,13 @@
           <div class="gpu-ticker-label">Optimized for India's GPU infrastructure</div>
           <div class="gpu-ticker-track" id="gpuTrack">
             <div class="gpu-chip nvidia" aria-label="NVIDIA">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
-                <rect width="160" height="42" rx="8" fill="currentColor"/>
-                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
-                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
-              </svg>
+              <img class="gpu-chip-logo" src="assets/logos/nvidia.svg" alt="NVIDIA" />
             </div>
             <div class="gpu-chip amd" aria-label="AMD">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
-                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
-                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
-              </svg>
+              <img class="gpu-chip-logo" src="assets/logos/amd.svg" alt="AMD" />
             </div>
             <div class="gpu-chip aws" aria-label="AWS">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
-                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
-                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="gpu-chip nvidia" aria-label="NVIDIA">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
-                <rect width="160" height="42" rx="8" fill="currentColor"/>
-                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
-                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
-              </svg>
-            </div>
-            <div class="gpu-chip amd" aria-label="AMD">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
-                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
-                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div class="gpu-chip aws" aria-label="AWS">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
-                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
-                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            <div class="gpu-chip nvidia" aria-label="NVIDIA">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
-                <rect width="160" height="42" rx="8" fill="currentColor"/>
-                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
-                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
-              </svg>
-            </div>
-            <div class="gpu-chip amd" aria-label="AMD">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
-                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
-                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div class="gpu-chip aws" aria-label="AWS">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
-                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
-                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="gpu-chip nvidia" aria-label="NVIDIA">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
-                <rect width="160" height="42" rx="8" fill="currentColor"/>
-                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
-                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
-              </svg>
-            </div>
-            <div class="gpu-chip amd" aria-label="AMD">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
-                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
-                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
-              </svg>
-            </div>
-            <div class="gpu-chip aws" aria-label="AWS">
-              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
-                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
-                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <img class="gpu-chip-logo" src="assets/logos/aws.svg" alt="AWS" />
             </div>
           </div>
         </div>
@@ -965,37 +887,29 @@
               <div class="section-label">Migration</div>
               <h2>Change the economics without changing your product.</h2>
               <p>Keep your SDK flow. Switch the base URL, route cost-sensitive traffic to Karya, and reserve frontier models for the requests where they genuinely justify the premium.</p>
-              <div class="code-tabs">
-                <button class="code-tab active" data-lang="python">Python</button>
-                <button class="code-tab" data-lang="js">Node.js</button>
+              <div class="integration-list">
+                <div class="integration-step">
+                  <span>01</span>
+                  <div>
+                    <strong>Keep your OpenAI-compatible client.</strong>
+                    <p>Point the base URL to Karya and keep the product flow your team already ships with.</p>
+                  </div>
+                </div>
+                <div class="integration-step">
+                  <span>02</span>
+                  <div>
+                    <strong>Route the repetitive traffic to efficient open-source models.</strong>
+                    <p>Use optimized serving for support, RAG, extraction, agents, and document workflows.</p>
+                  </div>
+                </div>
+                <div class="integration-step">
+                  <span>03</span>
+                  <div>
+                    <strong>Reserve frontier APIs for the hardest requests.</strong>
+                    <p>Keep premium models where they create premium value, not on every routine token.</p>
+                  </div>
+                </div>
               </div>
-              <div class="code-block" id="codePython">
-<span class="kw">from</span> openai <span class="kw">import</span> OpenAI
-
-client = OpenAI(
-    base_url=<span class="str">"https://api.karya.ai/v1"</span>,
-    api_key=<span class="str">"karya_sk_..."</span>
-)
-
-resp = client.chat.completions.<span class="fn">create</span>(
-    model=<span class="str">"Qwen3-35B-A3B"</span>,
-    messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>,
-               <span class="str">"content"</span>: <span class="str">"Summarize this report"</span>}]
-)
-<span class="fn">print</span>(resp.choices[<span class="num">0</span>].message.content)</div>
-              <div class="code-block" id="codeJs" style="display:none">
-<span class="kw">import</span> OpenAI <span class="kw">from</span> <span class="str">"openai"</span>;
-
-<span class="kw">const</span> client = <span class="kw">new</span> <span class="fn">OpenAI</span>({
-  baseURL: <span class="str">"https://api.karya.ai/v1"</span>,
-  apiKey: <span class="str">"karya_sk_..."</span>
-});
-
-<span class="kw">const</span> resp = <span class="kw">await</span> client.chat.completions.<span class="fn">create</span>({
-  model: <span class="str">"Qwen3-35B-A3B"</span>,
-  messages: [{ role: <span class="str">"user"</span>, content: <span class="str">"Summarize this report"</span> }]
-});
-console.<span class="fn">log</span>(resp.choices[<span class="num">0</span>].message.content);</div>
             </div>
 
             <aside class="route-panel">
@@ -1026,18 +940,5 @@ console.<span class="fn">log</span>(resp.choices[<span class="num">0</span>].mes
       </div>
     </footer>
 
-    <script>
-    (function () {
-      document.querySelectorAll(".code-tab").forEach(function (tab) {
-        tab.addEventListener("click", function () {
-          document.querySelectorAll(".code-tab").forEach(function (t) { t.classList.remove("active"); });
-          this.classList.add("active");
-          var lang = this.dataset.lang;
-          document.getElementById("codePython").style.display = lang === "python" ? "block" : "none";
-          document.getElementById("codeJs").style.display = lang === "js" ? "block" : "none";
-        });
-      });
-    })();
-    </script>
   </body>
 </html>

@@ -9,20 +9,21 @@
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap");
 
       :root {
-        --ink: #0c0f14;
-        --panel: #11161d;
-        --panel-2: #171d25;
-        --paper: #f5f1e8;
+        --ink: #080b10;
+        --panel: #10151d;
+        --panel-2: #151b24;
+        --paper: #f7f8fb;
         --text: #f8fafc;
-        --muted: #9aa4b2;
-        --muted-2: #667085;
-        --line: rgba(248, 250, 252, 0.1);
-        --line-light: rgba(12, 15, 20, 0.1);
+        --muted: #a7b0bd;
+        --muted-2: #687385;
+        --line: rgba(248, 250, 252, 0.12);
+        --line-light: rgba(12, 15, 20, 0.09);
         --saffron: #ff9933;
         --green: #138808;
-        --teal: #18b6a4;
+        --teal: #12b3a8;
         --blue: #000080;
-        --amber: #f5a524;
+        --amber: #ffb454;
+        --shadow: 0 24px 80px rgba(8, 11, 16, 0.14);
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,9 +41,9 @@
       .shell {
         min-height: 100vh;
         background:
-          linear-gradient(90deg, rgba(255,153,51,0.16), transparent 22%, transparent 78%, rgba(19,136,8,0.16)),
-          radial-gradient(circle at 50% 0%, rgba(24,182,164,0.18), transparent 34rem),
-          linear-gradient(180deg, #0c0f14 0%, #10151c 100%);
+          radial-gradient(circle at 18% -8%, rgba(18,179,168,0.16), transparent 34rem),
+          radial-gradient(circle at 88% 8%, rgba(255,153,51,0.09), transparent 28rem),
+          linear-gradient(180deg, #080b10 0%, #111720 100%);
       }
 
       .topbar {
@@ -50,7 +51,7 @@
         top: 0;
         z-index: 20;
         border-bottom: 1px solid var(--line);
-        background: rgba(12, 15, 20, 0.82);
+        background: rgba(8, 11, 16, 0.84);
         backdrop-filter: blur(18px);
       }
 
@@ -74,11 +75,12 @@
       .brand-mark {
         width: 34px;
         height: 34px;
-        border-radius: 8px;
+        border-radius: 12px;
         display: grid;
         place-items: center;
-        background: var(--text);
-        color: var(--ink);
+        background: linear-gradient(135deg, #ffffff, #dce7ef);
+        color: #0a1118;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.22);
       }
 
       .brand-mark svg { width: 18px; height: 18px; stroke: currentColor; }
@@ -97,7 +99,7 @@
       .nav-cta {
         min-height: 38px;
         padding: 0 16px;
-        border-radius: 999px;
+        border-radius: 8px;
         display: inline-flex;
         align-items: center;
         color: var(--ink) !important;
@@ -106,7 +108,7 @@
 
       .hero {
         position: relative;
-        padding: 92px 0 82px;
+        padding: 94px 0 72px;
         overflow: hidden;
       }
 
@@ -114,11 +116,11 @@
         content: "";
         position: absolute;
         inset: 0;
-        opacity: 0.12;
+        opacity: 0.07;
         background-image:
           linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-        background-size: 96px 96px;
+        background-size: 118px 118px;
         mask-image: linear-gradient(to bottom, black, transparent 85%);
       }
 
@@ -134,7 +136,7 @@
         gap: 10px;
         min-height: 32px;
         padding: 0 14px;
-        border-radius: 999px;
+        border-radius: 8px;
         border: 1px solid var(--line);
         background: rgba(255,255,255,0.06);
         color: var(--teal);
@@ -170,9 +172,9 @@
       h1 {
         margin-top: 24px;
         max-width: 960px;
-        font-size: clamp(46px, 7.2vw, 96px);
-        line-height: 0.94;
-        letter-spacing: -0.07em;
+        font-size: clamp(46px, 7vw, 92px);
+        line-height: 0.96;
+        letter-spacing: -0.06em;
         font-weight: 900;
       }
 
@@ -197,7 +199,7 @@
       .btn {
         min-height: 46px;
         padding: 0 20px;
-        border-radius: 999px;
+        border-radius: 8px;
         border: 1px solid var(--line);
         display: inline-flex;
         align-items: center;
@@ -235,7 +237,7 @@
       .proof {
         min-height: 132px;
         padding: 20px;
-        background: rgba(17,22,29,0.82);
+        background: rgba(16,21,29,0.9);
         animation: riseIn 0.7s ease both;
       }
 
@@ -245,7 +247,7 @@
 
       .proof strong {
         display: block;
-        color: var(--amber);
+        color: #ffffff;
         font-size: 38px;
         letter-spacing: -0.06em;
         line-height: 1;
@@ -254,7 +256,7 @@
       .proof span {
         display: block;
         margin-top: 8px;
-        color: rgba(248,250,252,0.56);
+        color: rgba(248,250,252,0.72);
         font-size: 11px;
         font-weight: 900;
         letter-spacing: 0.08em;
@@ -266,7 +268,7 @@
         background: var(--paper);
       }
 
-      section { padding: 76px 0; }
+      section { padding: 82px 0; }
 
       .section-head {
         max-width: 780px;
@@ -296,7 +298,7 @@
 
       .section-head p {
         margin-top: 12px;
-        color: #596273;
+        color: #5c6676;
         font-size: 15px;
         line-height: 1.65;
         font-weight: 600;
@@ -305,21 +307,22 @@
       .grid-3 {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+        gap: 16px;
       }
 
       .card {
         min-height: 230px;
-        padding: 24px;
-        border-radius: 8px;
+        padding: 26px;
+        border-radius: 12px;
         border: 1px solid var(--line-light);
-        background: rgba(255,255,255,0.58);
+        background: #fff;
+        box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
       }
 
       .card .tag {
         display: inline-flex;
         padding: 4px 10px;
-        border-radius: 999px;
+        border-radius: 7px;
         color: var(--teal);
         background: rgba(24,182,164,0.1);
         font-size: 10px;
@@ -353,13 +356,13 @@
         gap: 1px;
         overflow: hidden;
         border: 1px solid var(--line-light);
-        border-radius: 10px;
+        border-radius: 12px;
         background: var(--line-light);
       }
 
       .compare-item {
         padding: 20px;
-        background: rgba(255,255,255,0.62);
+        background: #fff;
       }
 
       .compare-item strong {
@@ -378,7 +381,7 @@
 
       .compare-item.karya {
         background: #fff;
-        box-shadow: inset 3px 0 0 var(--teal);
+        box-shadow: inset 3px 0 0 var(--teal), 0 16px 46px rgba(18, 179, 168, 0.08);
       }
 
       .platform {
@@ -389,10 +392,11 @@
       }
 
       .platform-panel {
-        border-radius: 10px;
+        border-radius: 12px;
         border: 1px solid var(--line-light);
         background: #fff;
         padding: 26px;
+        box-shadow: var(--shadow);
       }
 
       .platform-panel h3 {
@@ -428,14 +432,15 @@
       .models-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+        gap: 16px;
       }
 
       .model-card {
-        padding: 24px;
+        padding: 26px;
         border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel);
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.035));
+        box-shadow: 0 24px 70px rgba(0,0,0,0.16);
       }
 
       .model-top {
@@ -449,7 +454,7 @@
       .model-icon {
         width: 38px;
         height: 38px;
-        border-radius: 8px;
+        border-radius: 10px;
         display: grid;
         place-items: center;
         color: var(--ink);
@@ -460,7 +465,7 @@
       .status {
         color: #8df0b0;
         background: rgba(19,136,8,0.16);
-        border-radius: 999px;
+        border-radius: 7px;
         padding: 4px 9px;
         font-size: 10px;
         font-weight: 900;
@@ -486,7 +491,7 @@
         display: inline-flex;
         margin-top: 18px;
         padding: 6px 11px;
-        border-radius: 999px;
+        border-radius: 7px;
         border: 1px solid var(--line);
         color: var(--text);
         font-family: "JetBrains Mono", monospace;
@@ -499,7 +504,7 @@
       .dark-section {
         background: var(--ink);
         color: var(--text);
-        padding: 76px 0;
+        padding: 82px 0;
       }
 
       .dark-section .section-label,
@@ -522,7 +527,7 @@
         padding: 9px 16px;
         border: 1px solid var(--line);
         border-bottom: none;
-        border-radius: 8px 8px 0 0;
+        border-radius: 9px 9px 0 0;
         background: rgba(255,255,255,0.05);
         color: rgba(248,250,252,0.5);
         font: inherit;
@@ -538,7 +543,7 @@
 
       .code-block {
         border: 1px solid var(--line);
-        border-radius: 0 10px 10px 10px;
+        border-radius: 0 12px 12px 12px;
         background: rgba(255,255,255,0.05);
         padding: 20px;
         overflow-x: auto;
@@ -555,7 +560,7 @@
 
       .route-panel {
         border: 1px solid var(--line);
-        border-radius: 10px;
+        border-radius: 12px;
         background: rgba(255,255,255,0.05);
         padding: 24px;
       }
@@ -577,7 +582,7 @@
 
       .bar {
         height: 30px;
-        border-radius: 6px;
+        border-radius: 8px;
         background: rgba(255,255,255,0.1);
         overflow: hidden;
       }
@@ -585,7 +590,7 @@
       .bar span {
         height: 100%;
         display: block;
-        border-radius: 6px;
+        border-radius: 8px;
         background: linear-gradient(90deg, var(--green), var(--teal));
         transform-origin: left;
         animation: growBar 0.9s ease both;
@@ -596,9 +601,12 @@
 
       .statement {
         padding: 42px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #11161d, #0e766f 62%, #0d9488);
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 88% 10%, rgba(255,255,255,0.18), transparent 18rem),
+          linear-gradient(135deg, #0d1219, #0f766e 64%, #0d9488);
         color: var(--text);
+        box-shadow: var(--shadow);
       }
 
       .statement h2 { max-width: 740px; }
@@ -618,14 +626,80 @@
       }
 
       @keyframes riseIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { transform: translateY(10px); }
+        to { transform: translateY(0); }
       }
 
       @keyframes growBar {
         from { transform: scaleX(0); }
         to { transform: scaleX(1); }
       }
+
+      .gpu-ticker {
+        position: relative;
+        overflow: hidden;
+        padding: 24px 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: rgba(8, 11, 16, 0.72);
+      }
+
+      .gpu-ticker-label {
+        text-align: center;
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .gpu-ticker-track {
+        display: flex;
+        width: max-content;
+        animation: gpuScroll 24s linear infinite;
+      }
+
+      .gpu-ticker-track:hover {
+        animation-play-state: paused;
+      }
+
+      @keyframes gpuScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      .gpu-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 26px;
+        margin: 0 8px;
+        min-width: 176px;
+        min-height: 64px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.055);
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      }
+
+      .gpu-chip:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-1px);
+      }
+
+      .gpu-chip-logo {
+        width: 118px;
+        height: 34px;
+        flex-shrink: 0;
+      }
+
+      .gpu-chip.nvidia svg { color: #76b900; }
+      .gpu-chip.aws svg { color: #ff9900; }
+      .gpu-chip.amd svg { color: #ed1c24; }
 
       footer {
         color: #68707f;
@@ -658,6 +732,7 @@
         .card, .platform-panel, .model-card, .route-panel, .statement { padding: 22px; }
         .route-row { grid-template-columns: 1fr; }
         .footer { flex-direction: column; }
+        .gpu-chip { padding: 8px 14px; }
       }
     </style>
   </head>
@@ -700,6 +775,93 @@
             </div>
           </div>
         </header>
+
+        <div class="gpu-ticker">
+          <div class="gpu-ticker-label">Optimized for India's GPU infrastructure</div>
+          <div class="gpu-ticker-track" id="gpuTrack">
+            <div class="gpu-chip nvidia" aria-label="NVIDIA">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="42" rx="8" fill="currentColor"/>
+                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
+                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
+              </svg>
+            </div>
+            <div class="gpu-chip amd" aria-label="AMD">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
+                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
+                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="gpu-chip aws" aria-label="AWS">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
+                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
+                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="gpu-chip nvidia" aria-label="NVIDIA">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="42" rx="8" fill="currentColor"/>
+                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
+                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
+              </svg>
+            </div>
+            <div class="gpu-chip amd" aria-label="AMD">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
+                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
+                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="gpu-chip aws" aria-label="AWS">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
+                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
+                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="gpu-chip nvidia" aria-label="NVIDIA">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="42" rx="8" fill="currentColor"/>
+                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
+                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
+              </svg>
+            </div>
+            <div class="gpu-chip amd" aria-label="AMD">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
+                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
+                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="gpu-chip aws" aria-label="AWS">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
+                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
+                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="gpu-chip nvidia" aria-label="NVIDIA">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="NVIDIA" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="42" rx="8" fill="currentColor"/>
+                <path d="M22 21c9-10 23-10 33 0-10 10-24 10-33 0Zm8 0c6 5 12 5 17 0-5-5-11-5-17 0Z" fill="#fff"/>
+                <text x="76" y="27" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.03em">NVIDIA</text>
+              </svg>
+            </div>
+            <div class="gpu-chip amd" aria-label="AMD">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AMD" xmlns="http://www.w3.org/2000/svg">
+                <text x="18" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="-0.04em">AMD</text>
+                <path d="M110 9h32v32h-11V28l-23 13-6-10 23-13h-15V9Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="gpu-chip aws" aria-label="AWS">
+              <svg class="gpu-chip-logo" viewBox="0 0 160 42" role="img" aria-label="AWS" xmlns="http://www.w3.org/2000/svg">
+                <text x="42" y="25" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" letter-spacing="-0.05em">aws</text>
+                <path d="M46 31c24 9 50 5 70-8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                <path d="M113 23l10-2-5 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
 
         <div class="light">
           <section class="wrap" id="platform">

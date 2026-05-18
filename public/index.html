@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Karya.ai | Fast, Cost-effective Open-source AI Inference</title>
-    <meta name="description" content="Fast, cost-effective inference infrastructure for open-source AI models: 2-3x faster, 2-3x lower cost, and designed to keep enterprise data in India." />
+    <meta name="description" content="Fast, cost-effective inference infrastructure for open-source AI models: 2-3x faster, 10-20x lower cost, and designed to keep enterprise data in India." />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap");
 
@@ -313,6 +313,42 @@
         gap: 16px;
       }
 
+      .use-strip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid var(--line-light);
+        border-radius: 12px;
+        background: var(--line-light);
+        box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+      }
+
+      .use-tile {
+        min-height: 148px;
+        padding: 22px;
+        background: #fff;
+      }
+
+      .use-tile span {
+        display: block;
+        color: var(--teal);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+      }
+
+      .use-tile strong {
+        display: block;
+        max-width: 250px;
+        color: var(--ink);
+        font-size: 22px;
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+      }
+
       .card {
         min-height: 230px;
         padding: 26px;
@@ -408,33 +444,61 @@
         margin-bottom: 14px;
       }
 
-      .platform-list {
+      .quality-pairs {
         display: grid;
         gap: 12px;
-        list-style: none;
       }
 
-      .platform-list li {
-        display: flex;
-        gap: 12px;
-        color: #596273;
-        font-weight: 700;
-        line-height: 1.45;
+      .quality-pair {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+        padding: 16px;
+        border: 1px solid var(--line-light);
+        border-radius: 12px;
+        background: #f8fafc;
       }
 
-      .platform-list li::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--teal);
-        margin-top: 7px;
-        flex: 0 0 auto;
+      .quality-model,
+      .quality-claude {
+        display: grid;
+        gap: 4px;
+      }
+
+      .quality-model span,
+      .quality-claude span {
+        color: #687385;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .quality-model strong,
+      .quality-claude strong {
+        color: var(--ink);
+        font-size: 17px;
+        letter-spacing: -0.03em;
+      }
+
+      .quality-mark {
+        color: var(--teal);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .claude-logo {
+        display: block;
+        max-width: 112px;
+        max-height: 28px;
+        object-fit: contain;
       }
 
       .models-row {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
       }
 
@@ -716,7 +780,7 @@
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
         .hero { padding: 58px 0 58px; }
-        .proof-strip, .grid-3, .platform, .compare-grid, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
+        .proof-strip, .grid-3, .platform, .use-strip, .compare-grid, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
         .route-row { grid-template-columns: 80px 1fr 58px; }
       }
 
@@ -728,6 +792,8 @@
         .proof { min-height: 112px; }
         .card, .platform-panel, .model-card, .route-panel, .statement { padding: 22px; }
         .route-row { grid-template-columns: 1fr; }
+        .quality-pair { grid-template-columns: 1fr; }
+        .quality-mark { font-size: 14px; }
         .footer { flex-direction: column; }
         .gpu-chip { padding: 8px 14px; }
       }
@@ -757,7 +823,7 @@
             <div class="hero-inner">
               <div class="eyebrow"><span class="mini-flag" aria-hidden="true"></span> Built for fast AI at lower cost</div>
               <h1>Fast, cost-effective inference for <span>open-source AI.</span></h1>
-              <p class="hero-copy">Karya optimizes open-source AI models for Indian GPU infrastructure, delivering 2-3x faster inference at 2-3x lower cost while keeping enterprise data in India.</p>
+              <p class="hero-copy">Karya optimizes open-source AI models for Indian GPU infrastructure, delivering 2-3x faster inference at 10-20x lower cost while keeping enterprise data in India.</p>
               <div class="hero-actions">
                 <a class="btn btn-primary" href="/chat">Try Karya</a>
                 <a class="btn" href="mailto:hello@karya.ai">Talk to us</a>
@@ -766,7 +832,7 @@
 
             <div class="proof-strip" aria-label="Karya performance and residency highlights">
               <div class="proof"><strong>2-3x</strong><span>faster inference</span></div>
-              <div class="proof"><strong>2-3x</strong><span>lower cost</span></div>
+              <div class="proof"><strong>10-20x</strong><span>lower cost</span></div>
               <div class="proof"><strong>India</strong><span>data residency</span></div>
               <div class="proof"><strong>AI</strong><span>coding & agents</span></div>
             </div>
@@ -797,39 +863,50 @@
                 <p>Indian companies should be able to build serious AI products without sending every prompt abroad or paying frontier-model prices for routine work. Karya is built for that reality.</p>
               </div>
               <div class="platform-panel">
-                <h3>What actually matters in production?</h3>
-                <ul class="platform-list">
-                  <li>Model quality that is reliable enough for the business task, not leaderboard chasing for every request.</li>
-                  <li>Inference cost that stays predictable when pilots become real products with real traffic.</li>
-                  <li>Low latency for coding, agents, support, and everyday AI workflows where speed shapes adoption.</li>
-                  <li>India-hosted data control, practical model guidance, and a local team accountable for tuning the workload.</li>
-                </ul>
+                <h3>Open-source quality, familiar reference points.</h3>
+                <div class="quality-pairs">
+                  <div class="quality-pair">
+                    <div class="quality-model"><span>Karya route</span><strong>Qwen 3.6 35B</strong></div>
+                    <div class="quality-mark">~</div>
+                    <div class="quality-claude">
+                      <span>Quality reference</span>
+                      <img class="claude-logo" src="assets/logos/claude.svg" alt="Claude" />
+                      <strong>Sonnet 4.5</strong>
+                    </div>
+                  </div>
+                  <div class="quality-pair">
+                    <div class="quality-model"><span>Karya route</span><strong>GLM 5.1</strong></div>
+                    <div class="quality-mark">~</div>
+                    <div class="quality-claude">
+                      <span>Quality reference</span>
+                      <img class="claude-logo" src="assets/logos/claude.svg" alt="Claude" />
+                      <strong>Opus 4.6</strong>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
           <section class="wrap">
             <div class="section-head">
-              <div class="section-label">Product thesis</div>
-              <h2>Most enterprise AI does not need the largest model.</h2>
-              <p>It needs the right model, tuned well, served close to the data, and cheap enough to run repeatedly. That is where optimized open-source inference wins.</p>
+              <div class="section-label">Where it fits</div>
+              <h2>Use open-source models where traffic repeats.</h2>
+              <p>Keep premium models for the few requests that truly need them.</p>
             </div>
-            <div class="grid-3">
-              <article class="card">
-                <span class="tag">Assistants</span>
-                <h3>Support that can scale</h3>
-                <p>Policy answers, HR helpdesks, account support, and internal knowledge assistants with fast responses and predictable spend.</p>
-              </article>
-              <article class="card">
-                <span class="tag">Documents</span>
-                <h3>Documents without premium pricing</h3>
-                <p>Invoices, contracts, meeting notes, reports, and operational documents processed without paying top-tier model prices on every token.</p>
-              </article>
-              <article class="card">
-                <span class="tag">Agents</span>
-                <h3>Agents with sustainable margins</h3>
-                <p>Coding, research, and operations workflows where each extra model call affects margins, response time, and adoption.</p>
-              </article>
+            <div class="use-strip" aria-label="High-volume AI workloads">
+              <div class="use-tile">
+                <span>Assistants</span>
+                <strong>Support, HR, and account workflows</strong>
+              </div>
+              <div class="use-tile">
+                <span>Documents</span>
+                <strong>Invoices, contracts, reports, and notes</strong>
+              </div>
+              <div class="use-tile">
+                <span>Agents</span>
+                <strong>Coding, research, and operations loops</strong>
+              </div>
             </div>
           </section>
 
@@ -846,7 +923,7 @@
               </div>
               <div class="compare-item karya">
                 <strong>Karya optimized lane</strong>
-                <p>Open-source models on Indian GPU infrastructure, starting at &#x20B9;5/M tokens, targeting 2-3x faster inference and 2-3x lower cost.</p>
+                <p>Open-source models on Indian GPU infrastructure, starting at &#x20B9;5/M tokens, targeting 2-3x faster inference and 10-20x lower cost.</p>
               </div>
               <div class="compare-item">
                 <strong>Frontier direct APIs</strong>
@@ -860,26 +937,26 @@
           <div class="section-head center">
             <div class="section-label">Models</div>
             <h2>Open-source models are now strong enough for serious AI work.</h2>
-            <p>For many coding, agent, support, and business AI needs, modern open-source models can match Claude/OpenAI-class quality at a much better cost.</p>
+            <p>Most teams should start with Qwen for everyday AI, then use Kimi or GLM when the task needs more coding or reasoning depth.</p>
           </div>
           <div class="models-row">
             <article class="model-card">
               <div class="model-top"><div class="model-icon">Q</div><span class="status">Available</span></div>
-              <h3>Qwen3-35B-A3B</h3>
-              <p>Strong default for coding agents, business assistants, summarization, and everyday production AI.</p>
+              <h3>Qwen 3.6 35B</h3>
+              <p>Default pick for Indian companies: strong quality, fast serving, and the best cost profile.</p>
               <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
             </article>
             <article class="model-card">
-              <div class="model-top"><div class="model-icon">D</div><span class="status">Available</span></div>
-              <h3>DeepSeek-V4-Pro</h3>
-              <p>Higher-reasoning route when the task needs more depth but still needs better economics.</p>
-              <div class="model-price">&#x20B9;<span class="val">12</span> / M tokens</div>
+              <div class="model-top"><div class="model-icon">K</div><span class="status">Available</span></div>
+              <h3>Kimi 2.6</h3>
+              <p>Best fit when coding agents, longer tasks, and harder workflows need extra quality.</p>
+              <div class="model-price">&#x20B9;<span class="val">8</span> / M tokens</div>
             </article>
             <article class="model-card">
               <div class="model-top"><div class="model-icon">G</div><span class="status">Available</span></div>
               <h3>GLM-5.1</h3>
-              <p>Low-cost general model for high-volume AI features, internal tools, and repeatable workflows.</p>
-              <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
+              <p>Higher-reasoning route for complex business AI when the extra quality is worth 2x Qwen.</p>
+              <div class="model-price">&#x20B9;<span class="val">10</span> / M tokens</div>
             </article>
           </div>
         </section>
@@ -919,7 +996,7 @@
               <div class="section-label">Serving benchmark</div>
               <div class="route-row"><strong>Karya.ai</strong><div class="bar"><span class="karya"></span></div><strong>408 tok/s</strong></div>
               <div class="route-row"><strong>Generic</strong><div class="bar"><span class="generic"></span></div><strong>145 tok/s</strong></div>
-              <div class="route-row"><strong>Target</strong><div>Optimized serving for fast, cost-effective open-source AI at production scale.</div><strong>Scale</strong></div>
+              <div class="route-row"><strong>Target</strong><div>Optimized serving for 2-3x faster inference and 10-20x lower cost at production scale.</div><strong>Scale</strong></div>
             </aside>
           </div>
         </section>

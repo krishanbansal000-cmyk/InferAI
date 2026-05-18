@@ -109,7 +109,7 @@
 
       .hero {
         position: relative;
-        padding: 94px 0 72px;
+        padding: 66px 0 56px;
         overflow: hidden;
       }
 
@@ -134,22 +134,22 @@
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        min-height: 32px;
-        padding: 0 14px;
+        gap: 8px;
+        min-height: 28px;
+        padding: 0 12px;
         border-radius: 8px;
         border: 1px solid var(--line);
         background: rgba(255,255,255,0.06);
         color: var(--teal);
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 900;
         letter-spacing: 0.1em;
         text-transform: uppercase;
       }
 
       .mini-flag {
-        width: 24px;
-        height: 16px;
+        width: 21px;
+        height: 14px;
         border-radius: 2px;
         border: 1px solid rgba(255,255,255,0.42);
         overflow: hidden;
@@ -174,30 +174,37 @@
       }
 
       h1 {
-        margin-top: 24px;
-        max-width: 960px;
-        font-size: clamp(46px, 7vw, 92px);
-        line-height: 0.96;
-        letter-spacing: -0.06em;
+        margin-top: 20px;
+        max-width: 900px;
+        font-size: clamp(40px, 6vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
         font-weight: 900;
       }
 
-      h1 span { color: var(--teal); }
+      .text-teal { color: var(--teal); }
+      .text-green { color: var(--green); }
+      .text-saffron { color: var(--saffron); }
+      .text-blue { color: #8fb4ff; }
 
       .hero-copy {
-        max-width: 760px;
-        margin-top: 22px;
+        max-width: 720px;
+        margin-top: 18px;
         color: rgba(248,250,252,0.78);
-        font-size: clamp(17px, 2vw, 21px);
-        line-height: 1.55;
+        font-size: clamp(16px, 1.7vw, 19px);
+        line-height: 1.5;
         font-weight: 600;
+      }
+
+      .hero-copy strong {
+        font-weight: 800;
       }
 
       .hero-actions {
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-top: 30px;
+        margin-top: 24px;
       }
 
       .btn {
@@ -235,7 +242,7 @@
         border: 1px solid var(--line);
         border-radius: 10px;
         background: var(--line);
-        margin-top: 56px;
+        margin-top: 42px;
       }
 
       .proof {
@@ -780,7 +787,7 @@
 
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
-        .hero { padding: 58px 0 58px; }
+        .hero { padding: 46px 0 48px; }
         .proof-strip, .grid-3, .platform, .use-strip, .compare-grid, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
         .route-row { grid-template-columns: 80px 1fr 58px; }
       }
@@ -822,9 +829,9 @@
         <header class="hero">
           <div class="wrap">
             <div class="hero-inner">
-              <div class="eyebrow"><span class="mini-flag" aria-hidden="true"></span> Built for fast AI at lower cost</div>
-              <h1>Fast, cost-effective inference for <span>open-source AI.</span></h1>
-              <p class="hero-copy">Karya optimizes open-source AI models for Indian GPU infrastructure, delivering 2-3x faster inference at 10-20x lower cost while keeping enterprise data in India.</p>
+              <div class="eyebrow"><span class="mini-flag" aria-hidden="true"></span> Built for <span class="text-blue">fast AI</span> at <span class="text-green">lower cost</span></div>
+              <h1><span class="text-blue">Fast</span>, cost-effective inference for <span class="text-teal">open-source AI.</span></h1>
+              <p class="hero-copy">Karya optimizes open-source AI models for <strong class="text-teal">Indian GPU infrastructure</strong>, delivering 2-3x faster inference at <strong class="text-green">10-20x lower cost</strong> while keeping enterprise data in <strong class="text-saffron">India</strong>.</p>
               <div class="hero-actions">
                 <a class="btn btn-primary" href="/chat">Try Karya</a>
                 <a class="btn" href="mailto:hello@karya.ai">Talk to us</a>

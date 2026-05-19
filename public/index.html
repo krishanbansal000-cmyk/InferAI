@@ -119,7 +119,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        opacity: 0.07;
+        opacity: 0.06;
         background-image:
           linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
@@ -127,9 +127,24 @@
         mask-image: linear-gradient(to bottom, black, transparent 85%);
       }
 
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: max(24px, calc((100vw - 1160px) / 2));
+        top: 72px;
+        width: min(38vw, 460px);
+        aspect-ratio: 3 / 2;
+        background: url("assets/images/india-flag.svg") center / cover no-repeat;
+        opacity: 0.09;
+        filter: blur(18px) saturate(1.15);
+        transform: rotate(-7deg);
+        border-radius: 28px;
+        pointer-events: none;
+      }
+
       .hero-inner {
         position: relative;
-        z-index: 1;
+        z-index: 2;
         max-width: 980px;
       }
 
@@ -151,29 +166,13 @@
       }
 
       .mini-flag {
-        width: 21px;
-        height: 14px;
-        border-radius: 2px;
-        border: 1px solid rgba(255,255,255,0.42);
-        overflow: hidden;
-        position: relative;
+        width: 22px;
+        height: 15px;
+        border-radius: 3px;
+        border: 1px solid rgba(255,255,255,0.38);
         flex: 0 0 auto;
-        background: linear-gradient(to bottom, var(--saffron) 0 33.333%, #fff 33.333% 66.666%, var(--green) 66.666% 100%);
+        object-fit: cover;
         box-shadow: 0 0 0 1px rgba(0,0,0,0.18), 0 4px 12px rgba(0,0,0,0.2);
-      }
-
-      .mini-flag::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 6px;
-        height: 6px;
-        background:
-          radial-gradient(circle, var(--blue) 0 1px, transparent 1px),
-          repeating-conic-gradient(from 0deg, var(--blue) 0 7deg, transparent 7deg 15deg);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
       }
 
       h1 {
@@ -830,7 +829,7 @@
         <header class="hero">
           <div class="wrap">
             <div class="hero-inner">
-              <div class="eyebrow"><span class="mini-flag" aria-hidden="true"></span> Built for <span class="text-blue">fast AI</span> at <span class="text-green">lower cost</span></div>
+              <div class="eyebrow"><img class="mini-flag" src="assets/images/india-flag.svg" alt="" aria-hidden="true" /> Built for <span class="text-blue">fast AI</span> at <span class="text-green">lower cost</span></div>
               <h1><span class="text-blue">Fast</span>, cost-effective inference for <span class="text-teal hero-serif">open-source AI.</span></h1>
               <p class="hero-copy">Karya optimizes open-source AI models for <strong class="text-teal">Indian GPU infrastructure</strong>, delivering 2-3x faster inference at <strong class="text-green">10-20x lower cost</strong> while keeping enterprise data in <strong class="text-saffron">India</strong>.</p>
               <div class="hero-actions">

@@ -328,6 +328,66 @@
         gap: 16px;
       }
 
+      .signal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .signal-card {
+        min-height: 118px;
+        padding: 20px;
+        border: 1px solid var(--line-light);
+        border-radius: 10px;
+        background: rgba(247, 239, 226, 0.055);
+      }
+
+      .signal-card strong {
+        display: block;
+        color: var(--text);
+        font-size: 22px;
+        letter-spacing: -0.04em;
+        line-height: 1.04;
+        margin-bottom: 8px;
+      }
+
+      .signal-card span {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+
+      .stack-card {
+        min-height: 138px;
+        padding: 18px;
+        border: 1px solid var(--line-light);
+        border-radius: 10px;
+        background: rgba(247, 239, 226, 0.055);
+      }
+
+      .stack-card b {
+        display: block;
+        color: var(--text);
+        font-size: 15px;
+        letter-spacing: -0.03em;
+        margin-bottom: 12px;
+      }
+
+      .stack-card span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
       .expertise-strip {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -764,7 +824,8 @@
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
         .hero { padding: 46px 0 48px; }
-        .proof-strip, .grid-3, .platform, .expertise-strip, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
+        .proof-strip, .grid-3, .signal-grid, .platform, .expertise-strip, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
+        .stack-grid { grid-template-columns: repeat(2, 1fr); }
         .route-row { grid-template-columns: 80px 1fr 58px; }
       }
 
@@ -798,6 +859,7 @@
           filter: blur(12px) saturate(1.05);
         }
         .proof { min-height: 112px; }
+        .stack-grid { grid-template-columns: 1fr; }
         .card, .platform-panel, .model-card, .route-panel, .statement { padding: 22px; }
         .route-row { grid-template-columns: 1fr; }
         .quality-pair { grid-template-columns: 1fr; }
@@ -818,7 +880,7 @@
           <div class="nav-links">
             <a href="#platform">Platform</a>
             <a href="#models">Models</a>
-            <a href="#migration">Use cases</a>
+            <a href="#stack">Optimization</a>
             <a href="/dashboard">Dashboard</a>
             <a class="nav-cta" href="/chat">Try chat</a>
           </div>
@@ -829,9 +891,9 @@
         <header class="hero">
           <div class="wrap">
             <div class="hero-inner">
-              <div class="eyebrow">Built for <span class="text-accent">fast AI</span> at <span class="text-green">lower cost</span></div>
-              <h1><span class="text-accent">Fast</span>, cost-effective inference for <span class="text-teal hero-serif">open-source AI.</span></h1>
-              <p class="hero-copy">Karya optimizes open-source AI models for <strong class="text-teal">Indian GPU infrastructure</strong>, delivering 2-3x faster inference at <strong class="text-green">10-20x lower cost</strong> while keeping enterprise data in <strong class="text-saffron">India</strong>.</p>
+              <div class="eyebrow">India-hosted <span class="text-accent">AI inference</span></div>
+              <h1><span class="text-accent">Faster</span> open-source models on <span class="text-teal hero-serif">Indian GPUs.</span></h1>
+              <p class="hero-copy">Karya optimizes the serving stack around your model, workload, and GPU setup, so strong open-source AI can run at <strong class="text-green">10-20x lower cost</strong> with data kept in <strong class="text-saffron">India</strong>.</p>
               <div class="hero-actions">
                 <a class="btn btn-primary" href="/chat">Try Karya</a>
                 <a class="btn" href="mailto:krishan@karyainfer.com">Talk to us</a>
@@ -839,10 +901,10 @@
             </div>
 
             <div class="proof-strip" aria-label="Karya performance and residency highlights">
-              <div class="proof"><strong>2-3x</strong><span>faster inference</span></div>
+              <div class="proof"><strong>2-3x</strong><span>faster serving</span></div>
               <div class="proof"><strong>10-20x</strong><span>lower cost</span></div>
-              <div class="proof"><strong>India</strong><span>data residency</span></div>
-              <div class="proof"><strong>AI</strong><span>coding & agents</span></div>
+              <div class="proof"><strong>India</strong><span>hosted compute</span></div>
+              <div class="proof"><strong>GPU</strong><span>stack tuning</span></div>
             </div>
           </div>
         </header>
@@ -864,11 +926,16 @@
             <div class="platform">
               <div class="section-head">
                 <div class="section-label">Why Karya</div>
-                <h2>India needs its own inference layer.</h2>
-                <p>Indian companies should be able to build serious AI products without sending every prompt abroad or paying frontier-model prices for routine work. Karya is built for that reality.</p>
+                <h2>Most AI traffic does not need the most expensive model.</h2>
+                <p>Indian teams need capability, latency, privacy, and cost in the same system. Karya routes routine AI to optimized open models and keeps premium models for the rare requests that justify them.</p>
+                <div class="signal-grid">
+                  <div class="signal-card"><strong>Lower spend</strong><span>Use frontier APIs only where they create frontier value.</span></div>
+                  <div class="signal-card"><strong>Local control</strong><span>Run on Indian infrastructure with private deployment options.</span></div>
+                  <div class="signal-card"><strong>Real speed</strong><span>Optimize batching, cache, kernels, and routing around the workload.</span></div>
+                </div>
               </div>
               <div class="platform-panel">
-                <h3>Open-source quality, familiar reference points.</h3>
+                <h3>Open models are now good enough for serious product work.</h3>
                 <div class="quality-pairs">
                   <div class="quality-pair">
                     <div class="quality-model"><span>Karya route</span><strong>Qwen 3.6 35B</strong></div>
@@ -896,22 +963,38 @@
           <section class="wrap">
             <div class="section-head">
               <div class="section-label">Expertise</div>
-              <h2>We optimize the software that runs on your GPUs.</h2>
-              <p>Karya tunes the inference stack around your specific AI model, hardware, and traffic pattern so GPU capacity turns into fast, scalable, cost-efficient serving.</p>
+              <h2>Already have GPUs? We make them serve better.</h2>
+              <p>Karya optimizes the software layer on H100, H200, A100, L40S, NVIDIA, and AMD setups for the model you actually want to run.</p>
             </div>
             <div class="expertise-strip" aria-label="GPU inference optimization expertise">
               <div class="expertise-tile">
                 <span>GPU runtime</span>
-                <strong>Model-specific kernels, batching, and memory use</strong>
+                <strong>Kernels, quantization, and memory tuned per model</strong>
               </div>
               <div class="expertise-tile">
                 <span>Serving stack</span>
-                <strong>Low-latency inference built for steady scale</strong>
+                <strong>Continuous batching, KV cache, and low-latency routing</strong>
               </div>
               <div class="expertise-tile">
                 <span>Cost control</span>
-                <strong>More useful tokens from the same GPU spend</strong>
+                <strong>More useful tokens from the same GPU budget</strong>
               </div>
+            </div>
+          </section>
+
+          <section class="wrap" id="stack">
+            <div class="section-head">
+              <div class="section-label">Optimization stack</div>
+              <h2>The advantage is in the serving layer.</h2>
+              <p>We do the infra work that makes open models feel fast in production.</p>
+            </div>
+            <div class="stack-grid" aria-label="Karya inference optimization stack">
+              <div class="stack-card"><b>Quantized models</b><span>FP8, INT8, and 4-bit where quality holds.</span></div>
+              <div class="stack-card"><b>KV cache reuse</b><span>Reuse repeated prompts, tools, and agent context.</span></div>
+              <div class="stack-card"><b>Batching</b><span>Keep GPUs full without hurting interactive latency.</span></div>
+              <div class="stack-card"><b>Speculation</b><span>Draft and verify tokens for faster generation.</span></div>
+              <div class="stack-card"><b>Model routing</b><span>Easy tasks to Qwen, harder tasks to GLM or future routes.</span></div>
+              <div class="stack-card"><b>Private serving</b><span>Hosted API, dedicated endpoint, or customer GPU stack.</span></div>
             </div>
           </section>
 
@@ -920,27 +1003,27 @@
         <section class="wrap" id="models">
           <div class="section-head center">
             <div class="section-label">Models</div>
-            <h2>Open-source models are now strong enough for serious AI work.</h2>
-            <p>Most teams should start with Qwen for everyday AI, then use Kimi or GLM when the task needs more coding or reasoning depth.</p>
+            <h2>Start with the right model, not the largest model.</h2>
+            <p>Qwen for most traffic. GLM when higher reasoning is worth the extra cost. More optimized open models are being added.</p>
           </div>
           <div class="models-row">
             <article class="model-card">
               <div class="model-top"><div class="model-icon">Q</div><span class="status">Available</span></div>
               <h3>Qwen 3.6 35B</h3>
-              <p>Default pick for Indian companies: strong quality, fast serving, and the best cost profile.</p>
+              <p>Best default for assistants, coding help, RAG, extraction, and everyday AI.</p>
               <div class="model-price">&#x20B9;<span class="val">5</span> / M tokens</div>
-            </article>
-            <article class="model-card">
-              <div class="model-top"><div class="model-icon">K</div><span class="status">Available</span></div>
-              <h3>Kimi 2.6</h3>
-              <p>Best fit when coding agents, longer tasks, and harder workflows need extra quality.</p>
-              <div class="model-price">&#x20B9;<span class="val">16</span> / M tokens</div>
             </article>
             <article class="model-card">
               <div class="model-top"><div class="model-icon">G</div><span class="status">Available</span></div>
               <h3>GLM-5.1</h3>
-              <p>Higher-reasoning route for complex business AI when the extra quality is worth 2x Qwen.</p>
+              <p>Higher-reasoning route for complex business AI.</p>
               <div class="model-price">&#x20B9;<span class="val">20</span> / M tokens</div>
+            </article>
+            <article class="model-card">
+              <div class="model-top"><div class="model-icon">+</div><span class="status">Soon</span></div>
+              <h3>More coming</h3>
+              <p>We are benchmarking DeepSeek, Llama, MiniMax, and India-focused models for quality, speed, and serving cost.</p>
+              <div class="model-price">Optimized routes</div>
             </article>
           </div>
         </section>
@@ -948,29 +1031,29 @@
         <section class="dark-section" id="migration">
           <div class="wrap migration">
             <div>
-              <div class="section-label">Use cases</div>
-              <h2>Use premium models only where they are truly needed.</h2>
-              <p>Karya makes strong open-source models fast and cheap enough for the bulk of your AI traffic.</p>
+              <div class="section-label">Where it wins</div>
+              <h2>High-volume AI gets expensive fast.</h2>
+              <p>Karya is built for the repeat calls: agents, code, support, document AI, and internal copilots.</p>
               <div class="integration-list">
                 <div class="integration-step">
                   <span>01</span>
                   <div>
-                    <strong>Coding and agent workflows.</strong>
-                    <p>Run frequent tool calls, code help, task automation, and internal assistants without premium-token burn.</p>
+                    <strong>Build with open models first.</strong>
+                    <p>Use optimized Qwen and GLM routes for the majority of product traffic.</p>
                   </div>
                 </div>
                 <div class="integration-step">
                   <span>02</span>
                   <div>
-                    <strong>Everyday business AI.</strong>
-                    <p>Use open-source models for summaries, extraction, support, reports, and operations work.</p>
+                    <strong>Cache what repeats.</strong>
+                    <p>Reuse system prompts, agent context, docs, and common prefixes instead of recomputing them.</p>
                   </div>
                 </div>
                 <div class="integration-step">
                   <span>03</span>
                   <div>
-                    <strong>Premium models as escalation.</strong>
-                    <p>Send only the hardest, highest-value requests to Claude/OpenAI-class frontier models.</p>
+                    <strong>Escalate only when needed.</strong>
+                    <p>Keep Claude/OpenAI-class models for the few calls where premium quality pays back.</p>
                   </div>
                 </div>
               </div>
@@ -988,8 +1071,8 @@
         <section class="light">
           <div class="wrap">
             <div class="statement">
-              <h2>Build AI products that are fast enough and cheap enough to scale.</h2>
-              <p>Use strong open-source models for most requests, and reserve premium frontier APIs for the rare cases that need them.</p>
+              <h2>Benchmark your model on Indian GPUs.</h2>
+              <p>Bring your workload. We will show the latency, throughput, and cost difference before you move production traffic.</p>
               <a class="btn" href="mailto:krishan@karyainfer.com">krishan@karyainfer.com</a>
             </div>
           </div>

@@ -338,7 +338,7 @@
         gap: 16px;
       }
 
-      .use-strip {
+      .expertise-strip {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1px;
@@ -349,13 +349,13 @@
         box-shadow: 0 20px 58px rgba(15, 23, 42, 0.07);
       }
 
-      .use-tile {
+      .expertise-tile {
         min-height: 148px;
         padding: 22px;
         background: rgba(255, 255, 255, 0.86);
       }
 
-      .use-tile span {
+      .expertise-tile span {
         display: block;
         color: var(--teal);
         font-size: 11px;
@@ -365,7 +365,7 @@
         margin-bottom: 28px;
       }
 
-      .use-tile strong {
+      .expertise-tile strong {
         display: block;
         max-width: 250px;
         color: var(--ink);
@@ -408,45 +408,6 @@
         font-size: 14px;
         font-weight: 600;
         line-height: 1.58;
-      }
-
-      .compare-band {
-        margin-top: -22px;
-        padding-top: 0;
-      }
-
-      .compare-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1px;
-        overflow: hidden;
-        border: 1px solid var(--line-light);
-        border-radius: 10px;
-        background: var(--line-light);
-      }
-
-      .compare-item {
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.88);
-      }
-
-      .compare-item strong {
-        display: block;
-        font-size: 15px;
-        letter-spacing: -0.02em;
-        margin-bottom: 7px;
-      }
-
-      .compare-item p {
-        color: #596273;
-        font-size: 13px;
-        line-height: 1.55;
-        font-weight: 650;
-      }
-
-      .compare-item.karya {
-        background: rgba(255, 255, 255, 0.94);
-        box-shadow: inset 3px 0 0 var(--teal), 0 16px 46px rgba(0, 214, 182, 0.1);
       }
 
       .platform {
@@ -811,7 +772,7 @@
       @media (max-width: 920px) {
         .nav-links a:not(.nav-cta) { display: none; }
         .hero { padding: 46px 0 48px; }
-        .proof-strip, .grid-3, .platform, .use-strip, .compare-grid, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
+        .proof-strip, .grid-3, .platform, .expertise-strip, .models-row, .migration, .gpu-ticker-track { grid-template-columns: 1fr; }
         .route-row { grid-template-columns: 80px 1fr 58px; }
       }
 
@@ -935,47 +896,26 @@
 
           <section class="wrap">
             <div class="section-head">
-              <div class="section-label">Where it fits</div>
-              <h2>Use open-source models where traffic repeats.</h2>
-              <p>Keep premium models for the few requests that truly need them.</p>
+              <div class="section-label">Expertise</div>
+              <h2>We optimize the software that runs on your GPUs.</h2>
+              <p>Karya tunes the inference stack around your specific AI model, hardware, and traffic pattern so GPU capacity turns into fast, scalable, cost-efficient serving.</p>
             </div>
-            <div class="use-strip" aria-label="High-volume AI workloads">
-              <div class="use-tile">
-                <span>Assistants</span>
-                <strong>Support, HR, and account workflows</strong>
+            <div class="expertise-strip" aria-label="GPU inference optimization expertise">
+              <div class="expertise-tile">
+                <span>GPU runtime</span>
+                <strong>Model-specific kernels, batching, and memory use</strong>
               </div>
-              <div class="use-tile">
-                <span>Documents</span>
-                <strong>Invoices, contracts, reports, and notes</strong>
+              <div class="expertise-tile">
+                <span>Serving stack</span>
+                <strong>Low-latency inference built for steady scale</strong>
               </div>
-              <div class="use-tile">
-                <span>Agents</span>
-                <strong>Coding, research, and operations loops</strong>
+              <div class="expertise-tile">
+                <span>Cost control</span>
+                <strong>More useful tokens from the same GPU spend</strong>
               </div>
             </div>
           </section>
 
-          <section class="wrap compare-band">
-            <div class="section-head">
-              <div class="section-label">Comparison</div>
-              <h2>Use the right lane for the workload.</h2>
-              <p>Model routers like OpenRouter are useful for model choice and experimentation. Karya is focused on a dedicated India-hosted inference lane where cost, latency, and data residency matter.</p>
-            </div>
-            <div class="compare-grid">
-              <div class="compare-item">
-                <strong>OpenRouter-style model routers</strong>
-                <p>Great for trying many models through one API. Public prices, latency, and throughput vary by model and upstream provider.</p>
-              </div>
-              <div class="compare-item karya">
-                <strong>Karya optimized lane</strong>
-                <p>Open-source models on Indian GPU infrastructure, starting at &#x20B9;5/M tokens, targeting 2-3x faster inference and 10-20x lower cost.</p>
-              </div>
-              <div class="compare-item">
-                <strong>Frontier direct APIs</strong>
-                <p>Best for the hardest, highest-value tasks. Often worth reserving for requests where premium accuracy justifies premium cost.</p>
-              </div>
-            </div>
-          </section>
         </div>
 
         <section class="wrap" id="models">

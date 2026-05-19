@@ -19,12 +19,12 @@
         --muted-2: #8f846f;
         --line: rgba(247, 239, 226, 0.13);
         --line-light: rgba(247, 239, 226, 0.12);
-        --saffron: #ff9933;
+        --saffron: #c9877a;
         --green: #58b66b;
         --teal: #58b66b;
         --teal-soft: rgba(88, 182, 107, 0.13);
         --blue: #000080;
-        --amber: #f3b75d;
+        --accent: #c9877a;
         --shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
       }
 
@@ -43,7 +43,7 @@
       .shell {
         min-height: 100vh;
         background:
-          radial-gradient(circle at 18% -10%, rgba(243,183,93,0.14), transparent 34rem),
+          radial-gradient(circle at 18% -10%, rgba(201,135,122,0.14), transparent 34rem),
           radial-gradient(circle at 88% 2%, rgba(88,182,107,0.08), transparent 28rem),
           linear-gradient(180deg, #11100d 0%, #171611 54%, #1c1a14 100%);
       }
@@ -80,9 +80,9 @@
         border-radius: 12px;
         display: grid;
         place-items: center;
-        background: var(--amber);
-        color: #17110a;
-        box-shadow: 0 12px 34px rgba(243,183,93,0.18);
+        background: var(--accent);
+        color: #1a1110;
+        box-shadow: 0 12px 34px rgba(201,135,122,0.18);
       }
 
       .brand-mark svg { width: 18px; height: 18px; stroke: currentColor; }
@@ -104,9 +104,9 @@
         border-radius: 8px;
         display: inline-flex;
         align-items: center;
-        color: #17110a !important;
-        background: var(--amber);
-        box-shadow: 0 10px 28px rgba(243,183,93,0.16);
+        color: #1a1110 !important;
+        background: var(--accent);
+        box-shadow: 0 10px 28px rgba(201,135,122,0.16);
       }
 
       .hero {
@@ -178,7 +178,7 @@
       .text-teal { color: var(--teal); }
       .text-green { color: #6ee07f; }
       .text-saffron { color: var(--saffron); }
-      .text-amber { color: var(--amber); }
+      .text-accent { color: var(--accent); }
 
       .hero-serif {
         font-family: "Newsreader", Georgia, serif;
@@ -226,13 +226,13 @@
       .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.1); }
 
       .btn-primary {
-        color: #17110a;
-        background: var(--amber);
-        border-color: var(--amber);
-        box-shadow: 0 14px 34px rgba(243,183,93,0.16);
+        color: #1a1110;
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 14px 34px rgba(201,135,122,0.16);
       }
 
-      .btn-primary:hover { background: #ffd08a; }
+      .btn-primary:hover { background: #d99a8e; }
 
       .proof-strip {
         position: relative;
@@ -279,7 +279,7 @@
       .light {
         color: var(--text);
         background:
-          radial-gradient(circle at 82% 2%, rgba(243,183,93,0.06), transparent 28rem),
+          radial-gradient(circle at 82% 2%, rgba(201,135,122,0.06), transparent 28rem),
           var(--paper);
       }
 
@@ -506,8 +506,8 @@
         border-radius: 10px;
         display: grid;
         place-items: center;
-        color: #17110a;
-        background: var(--amber);
+        color: #1a1110;
+        background: var(--accent);
         font-weight: 900;
       }
 
@@ -552,7 +552,7 @@
 
       .dark-section {
         background:
-          radial-gradient(circle at 50% 0%, rgba(243,183,93,0.06), transparent 28rem),
+          radial-gradient(circle at 50% 0%, rgba(201,135,122,0.06), transparent 28rem),
           var(--ink);
         color: var(--text);
         padding: 82px 0;
@@ -591,8 +591,8 @@
         border-radius: 10px;
         display: grid;
         place-items: center;
-        color: #17110a;
-        background: var(--amber);
+        color: #1a1110;
+        background: var(--accent);
         font-weight: 900;
         font-family: "JetBrains Mono", monospace;
         font-size: 13px;
@@ -645,7 +645,7 @@
         height: 100%;
         display: block;
         border-radius: 8px;
-        background: linear-gradient(90deg, var(--amber), var(--green));
+        background: linear-gradient(90deg, var(--accent), var(--green));
         transform-origin: left;
         animation: growBar 0.9s ease both;
       }
@@ -657,7 +657,7 @@
         padding: 42px;
         border-radius: 14px;
         background:
-          radial-gradient(circle at 88% 10%, rgba(243,183,93,0.16), transparent 18rem),
+          radial-gradient(circle at 88% 10%, rgba(201,135,122,0.16), transparent 18rem),
           linear-gradient(135deg, #191813, #2b261a 58%, #49351d);
         color: var(--text);
         box-shadow: var(--shadow);
@@ -675,8 +675,8 @@
 
       .statement .btn {
         margin-top: 22px;
-        color: #17110a;
-        background: var(--amber);
+        color: #1a1110;
+        background: var(--accent);
       }
 
       @keyframes riseIn {
@@ -829,8 +829,8 @@
         <header class="hero">
           <div class="wrap">
             <div class="hero-inner">
-              <div class="eyebrow">Built for <span class="text-amber">fast AI</span> at <span class="text-green">lower cost</span></div>
-              <h1><span class="text-amber">Fast</span>, cost-effective inference for <span class="text-teal hero-serif">open-source AI.</span></h1>
+              <div class="eyebrow">Built for <span class="text-accent">fast AI</span> at <span class="text-green">lower cost</span></div>
+              <h1><span class="text-accent">Fast</span>, cost-effective inference for <span class="text-teal hero-serif">open-source AI.</span></h1>
               <p class="hero-copy">Karya optimizes open-source AI models for <strong class="text-teal">Indian GPU infrastructure</strong>, delivering 2-3x faster inference at <strong class="text-green">10-20x lower cost</strong> while keeping enterprise data in <strong class="text-saffron">India</strong>.</p>
               <div class="hero-actions">
                 <a class="btn btn-primary" href="/chat">Try Karya</a>

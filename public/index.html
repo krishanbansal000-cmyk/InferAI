@@ -130,15 +130,16 @@
       .hero::after {
         content: "";
         position: absolute;
-        right: max(24px, calc((100vw - 1160px) / 2));
-        top: 72px;
-        width: min(38vw, 460px);
+        right: max(-82px, calc((100vw - 1160px) / 2 - 120px));
+        top: 106px;
+        width: min(48vw, 620px);
         aspect-ratio: 3 / 2;
         background: url("assets/images/india-flag.svg") center / cover no-repeat;
-        opacity: 0.09;
-        filter: blur(18px) saturate(1.15);
-        transform: rotate(-7deg);
-        border-radius: 28px;
+        opacity: 0.12;
+        filter: blur(10px) saturate(1.08);
+        transform: rotate(-8deg);
+        border-radius: 44px;
+        mask-image: radial-gradient(ellipse at center, black 34%, rgba(0,0,0,0.72) 48%, transparent 76%);
         pointer-events: none;
       }
 
@@ -165,16 +166,6 @@
         text-transform: uppercase;
       }
 
-      .mini-flag {
-        width: 22px;
-        height: 15px;
-        border-radius: 3px;
-        border: 1px solid rgba(255,255,255,0.38);
-        flex: 0 0 auto;
-        object-fit: cover;
-        box-shadow: 0 0 0 1px rgba(0,0,0,0.18), 0 4px 12px rgba(0,0,0,0.2);
-      }
-
       h1 {
         margin-top: 20px;
         max-width: 850px;
@@ -187,7 +178,7 @@
       .text-teal { color: var(--teal); }
       .text-green { color: #6ee07f; }
       .text-saffron { color: var(--saffron); }
-      .text-blue { color: #8fb4ff; }
+      .text-amber { color: var(--amber); }
 
       .hero-serif {
         font-family: "Newsreader", Georgia, serif;
@@ -288,7 +279,7 @@
       .light {
         color: var(--ink);
         background:
-          radial-gradient(circle at 80% 0%, rgba(0,214,182,0.06), transparent 28rem),
+          radial-gradient(circle at 82% 2%, rgba(255,153,51,0.055), transparent 28rem),
           var(--paper);
       }
 
@@ -797,6 +788,13 @@
           font-size: 15px;
         }
         .hero-copy strong { overflow-wrap: anywhere; }
+        .hero::after {
+          right: -150px;
+          top: 116px;
+          width: 360px;
+          opacity: 0.07;
+          filter: blur(12px) saturate(1.05);
+        }
         .proof { min-height: 112px; }
         .card, .platform-panel, .model-card, .route-panel, .statement { padding: 22px; }
         .route-row { grid-template-columns: 1fr; }
@@ -829,8 +827,8 @@
         <header class="hero">
           <div class="wrap">
             <div class="hero-inner">
-              <div class="eyebrow"><img class="mini-flag" src="assets/images/india-flag.svg" alt="" aria-hidden="true" /> Built for <span class="text-blue">fast AI</span> at <span class="text-green">lower cost</span></div>
-              <h1><span class="text-blue">Fast</span>, cost-effective inference for <span class="text-teal hero-serif">open-source AI.</span></h1>
+              <div class="eyebrow">Built for <span class="text-amber">fast AI</span> at <span class="text-green">lower cost</span></div>
+              <h1><span class="text-amber">Fast</span>, cost-effective inference for <span class="text-teal hero-serif">open-source AI.</span></h1>
               <p class="hero-copy">Karya optimizes open-source AI models for <strong class="text-teal">Indian GPU infrastructure</strong>, delivering 2-3x faster inference at <strong class="text-green">10-20x lower cost</strong> while keeping enterprise data in <strong class="text-saffron">India</strong>.</p>
               <div class="hero-actions">
                 <a class="btn btn-primary" href="/chat">Try Karya</a>
